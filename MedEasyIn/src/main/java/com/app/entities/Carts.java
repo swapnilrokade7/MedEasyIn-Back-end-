@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -85,20 +86,20 @@ public class Carts extends BaseEntity{
 		this.totalPrice = totalPrice;
 	}
 
-	public Set<CartItems> getCart_items() {
-		return cartItems;
-	}
-
-	public void setCart_items(Set<CartItems> cart_items) {
-		this.cartItems = cart_items;
-	}
-
 	public Users getUser() {
 		return user;
 	}
 
 	public void setUser(Users user) {
 		this.user = user;
+	}
+	
+	public void setCartItems(CartItems cartItem) {
+		cartItems.add(cartItem);
+	}
+	
+	public Set<CartItems> getCartItems(){
+		return cartItems;
 	}
 	
 	

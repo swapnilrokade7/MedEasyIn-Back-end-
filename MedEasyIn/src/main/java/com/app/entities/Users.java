@@ -1,9 +1,14 @@
 package com.app.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -26,10 +31,13 @@ public class Users extends BaseEntity{
 	private Role role;
 	@Column(length=10,unique = true,nullable = false)
 	private Long mobile_number;
+	
+	@OneToOne(mappedBy = "user")
+	private Carts cart;
 	/*
 	 {"firstName":"Mathuresh","lastName":"Yadav","email":"m@gmail.com","password":"satyajeet","role":"CUSTOMER","mobile_number":"1234567890",}*/
-	
-	
+//	@OneToMany if time permits
+//	List<DeliveryAddress> addresses = new ArrayList<DeliveryAddress>();
 	public Users() {
 		super();
 		System.out.println("in ctor "+getClass().getName());
@@ -104,6 +112,17 @@ public class Users extends BaseEntity{
 
 	public void setMobile_number(Long mobile_number) {
 		this.mobile_number = mobile_number;
+	}
+	
+	
+
+	public Carts getCart() {
+		return cart;
+	}
+
+
+	public void setCart(Carts cart) {
+		this.cart = cart;
 	}
 
 

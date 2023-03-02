@@ -1,6 +1,7 @@
 package com.app.entities;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -23,7 +24,7 @@ public class Orders extends BaseEntity{
 	@JoinColumn(name = "user_id")
 	private Users userOrdered;
 	@OneToMany(mappedBy = "orderId")
-	private List<OrderDetails> orderDetails;
+	private List<OrderDetails> orderDetailsSet = new ArrayList<OrderDetails>();
 	@OneToOne
 	private DeliveryAddress address;
 	
@@ -35,7 +36,7 @@ public class Orders extends BaseEntity{
 
 
 	public Orders(LocalDate orderDate, LocalDate deliveryDate, Status status, double totalPrice, double shippingPrice,
-			Users userOrdered, List<OrderDetails> orderDetails, DeliveryAddress address) {
+			Users userOrdered, DeliveryAddress address) {
 		super();
 		this.orderDate = orderDate;
 		this.deliveryDate = deliveryDate;
@@ -43,7 +44,6 @@ public class Orders extends BaseEntity{
 		this.totalPrice = totalPrice;
 		this.shippingPrice = shippingPrice;
 		this.userOrdered = userOrdered;
-		this.orderDetails = orderDetails;
 		this.address = address;
 	}
 
@@ -109,12 +109,12 @@ public class Orders extends BaseEntity{
 
 
 	public List<OrderDetails> getOrderDetails() {
-		return orderDetails;
+		return orderDetailsSet;
 	}
 
 
-	public void setOrderDetails(List<OrderDetails> orderDetails) {
-		this.orderDetails = orderDetails;
+	public void setOrderDetails(OrderDetails orderDetails) {
+		 orderDetailsSet.add(orderDetails);
 	}
 
 

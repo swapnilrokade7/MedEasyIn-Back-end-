@@ -24,16 +24,14 @@ public class DeliveryAddress extends BaseEntity{
 		System.out.println("in ctor "+getClass().getName());
 	}
 
-	public DeliveryAddress(String adress_Line1, String adress_Line2, String city, String state, String zip_Code,
-			Orders orderInfo) {
+	public DeliveryAddress(String adress_Line1, String adress_Line2, String city, String state, String zip_Code) {
 		super();
 		this.adress_Line1 = adress_Line1;
 		this.adress_Line2 = adress_Line2;
 		this.city = city;
 		this.state = state;
 		this.zipCode = zip_Code;
-		this.orderInfo = orderInfo;
-	}
+		}
 
 	public String getAdress_Line1() {
 		return adress_Line1;

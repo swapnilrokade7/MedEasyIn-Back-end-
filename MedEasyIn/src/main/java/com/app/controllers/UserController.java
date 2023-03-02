@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.dto.UsersDTO;
 import com.app.entities.Users;
 import com.app.services.UserService;
 
@@ -24,7 +25,7 @@ public class UserController {
 	
 	
 	@PostMapping("/signup")
-	public ResponseEntity<?> userRegistration(@RequestBody @Valid Users user) {
+	public ResponseEntity<?> userRegistration(@RequestBody @Valid UsersDTO user) {
 		System.out.println("in reg user : user " );
 		// invoke service layer method , for saving : user info + associated roles info
 		return ResponseEntity.status(HttpStatus.CREATED).body(userService.addUserDetails(user));

@@ -8,7 +8,7 @@ import javax.persistence.Table;
 @Table(name="categories")
 public class Categories extends BaseEntity{
 	@Column(length = 50,nullable = false)
-	private String category_Name;
+	private String categoryName;
 	@Column(length = 1000,nullable = false)
 	private String description;
 	
@@ -18,20 +18,20 @@ public class Categories extends BaseEntity{
 	}
 
 
-	public Categories(String category_Name, String description) {
+	public Categories(String categoryName, String description) {
 		super();
-		this.category_Name = category_Name;
+		this.categoryName = categoryName;
 		this.description = description;
 	}
 
 
-	public String getCategory_Name() {
-		return category_Name;
+	public String getCategoryName() {
+		return categoryName;
 	}
 
 
-	public void setCategory_Name(String category_Name) {
-		this.category_Name = category_Name;
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 
 
@@ -47,7 +47,7 @@ public class Categories extends BaseEntity{
 
 	@Override
 	public String toString() {
-		return "Categories [category_Name=" + category_Name + ", description=" + description + ", getId()=" + getId()
+		return "Categories [category_Name=" + categoryName + ", description=" + description + ", getId()=" + getId()
 				+ "]";
 	}
 	

@@ -10,7 +10,7 @@ public class Products extends BaseEntity{
 	@Column(nullable = false)
 	private Double price;
 	private String description;
-	private Boolean inStock;
+	private Integer stock;
 	@ManyToOne
 	@JoinColumn(name="category_id")
 	private Categories categoryId;
@@ -19,7 +19,7 @@ public class Products extends BaseEntity{
 //	@ManyToMany
 //	@JoinColumn(name="order_id")
 //	private Orders orderId;
-	
+	/*{"name":"Crocine","price":"12.0","description":"Fever Tablet","stock":"500","categoryId":"1","imagePath":"images/kiara.jpg"}*/
 	
 	
 	public Products() {
@@ -28,12 +28,12 @@ public class Products extends BaseEntity{
 	}
 
 
-	public Products(String name, Double price, String description, Boolean inStock, Categories categoryId) {
+	public Products(String name, Double price, String description, Integer stock, Categories categoryId) {
 		super();
 		this.name = name;
 		this.price = price;
 		this.description = description;
-		this.inStock = inStock;
+		this.stock = stock;
 		this.categoryId = categoryId;
 	}
 
@@ -45,6 +45,26 @@ public class Products extends BaseEntity{
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+
+	public Integer getStock() {
+		return stock;
+	}
+
+
+	public void setStock(Integer stock) {
+		this.stock = stock;
+	}
+
+
+	public String getImagePath() {
+		return imagePath;
+	}
+
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
 	}
 
 
@@ -67,15 +87,6 @@ public class Products extends BaseEntity{
 		this.description = description;
 	}
 
-
-	public Boolean getInStock() {
-		return inStock;
-	}
-
-
-	public void setInStock(Boolean inStock) {
-		this.inStock = inStock;
-	}
 
 
 	public Categories getCategoryId() {
