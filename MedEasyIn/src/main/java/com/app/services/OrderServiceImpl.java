@@ -37,6 +37,10 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
     private OrderDetailsRepository detailsRepository;
 	
+	@Autowired
+	private CartService cartService;
+	
+	
 
 	@Override
 	public Orders placeOrder(Long userId,DeliveryAddressDTO address) {
@@ -55,8 +59,8 @@ public class OrderServiceImpl implements OrderService {
             
 		});
 		neworder.setTotalPrice(cart.getTotalPrice()+neworder.getShippingPrice());
-//		neworder.setStatus(Status.PLACED);
-		//cart.setCartItems(null);
+		neworder.setStatus(Status.PLACED);
+		cartService.emptyTheCart(cart.getId());
 		//Repo Delete method Call for CartItems (Death of Cart is Birth Of Order)
 		
 		

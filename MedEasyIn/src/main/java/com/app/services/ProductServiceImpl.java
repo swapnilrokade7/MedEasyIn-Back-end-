@@ -37,6 +37,7 @@ public class ProductServiceImpl implements ProductService {
 		Long CatId=product.getCategoryId();
 		Optional<Categories> cat1=categoryService.getCategory(CatId);
 		Categories cat=categoryRepository.getReferenceById(CatId);
+		
 		Products newProduct=new Products(product.getName(),product.getPrice(),product.getDescription(),product.getStock(),cat);
 	
 		Products prod=productRepository.save(newProduct);

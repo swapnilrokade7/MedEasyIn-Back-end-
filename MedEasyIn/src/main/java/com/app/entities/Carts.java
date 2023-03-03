@@ -98,6 +98,10 @@ public class Carts extends BaseEntity{
 		cartItems.add(cartItem);
 	}
 	
+	public void emptyCartItems() {
+		cartItems.clear();
+	}
+	
 	public Set<CartItems> getCartItems(){
 		return cartItems;
 	}

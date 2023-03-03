@@ -7,4 +7,6 @@ public interface CartService {
 
 	Carts addCart(Users user);
 
+	void emptyTheCart(Long cartId);
+
 }

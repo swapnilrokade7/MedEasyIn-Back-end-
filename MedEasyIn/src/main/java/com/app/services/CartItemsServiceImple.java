@@ -58,6 +58,13 @@ public class CartItemsServiceImple implements CartItemsService{
 		
 		return  cart.getCartItems();
 	}
+
+	@Override
+	public void DeleteCartItemsFromCart(Carts cartId) {
+		cartItemsRepository.deleteByCartId(cartId);	
+	}
+	
+	
 	
 	
 }
