@@ -1,6 +1,8 @@
 package com.app.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.PositiveOrZero;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -10,9 +12,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "cart_items")
 public class CartItems extends BaseEntity{
+	@PositiveOrZero(message = "Quantity can't be Negative")
 	@Column(name="quantity")
 	private Integer quantity;
 	@Column(name = "total_price", nullable=false)
+	@PositiveOrZero(message = "Price can't be Negative")
 	private Double totalPrice;
 	@ManyToOne
 	@JoinColumn(name = "cart_id")
@@ -20,7 +24,7 @@ public class CartItems extends BaseEntity{
 	private Carts cartId;
 	@OneToOne
 	@JoinColumn(name = "product_id")
-	
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Products productId;
 	
 	public CartItems() {

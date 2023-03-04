@@ -3,6 +3,7 @@ package com.app.services;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -10,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.app.custom_exception.ElementNotFoundException;
 import com.app.dto.ProductsDTO;
 import com.app.dto.ProductsRespDTO;
 import com.app.entities.Categories;
@@ -41,10 +43,12 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public ProductsRespDTO saveProduct(ProductsDTO product) {
 		Long CatId=product.getCategoryId();
-		Optional<Categories> cat1=categoryService.getCategory(CatId);
-		Categories cat=categoryRepository.getReferenceById(CatId);
+//		Optional<Categories> cat1=categoryService.getCategory(CatId);
+		Optional<Categories> cat=categoryRepository.findById(product.getCategoryId());
 		
-		Products newProduct=new Products(product.getName(),product.getPrice(),product.getDescription(),product.getStock(),cat);
+		Categories result= cat.orElseThrow(()->new ElementNotFoundException("Category", "404", "Not Found"));
+		
+		Products newProduct=new Products(product.getName(),product.getPrice(),product.getDescription(),product.getStock(),result);
 	
 		Products prod=productRepository.save(newProduct);
 		return mapper.map(prod, ProductsRespDTO.class); 
@@ -52,19 +56,18 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Override
 	public List<ProductsProjection> getProductsByCategory(Long categoryId) {
-		Categories category = categoryRepository.getReferenceById(categoryId);
-		 List<Products> tempList=productRepository.findByCategoryId(category);
+		Optional<Categories> cat=categoryRepository.findById(categoryId);
+		Categories result= cat.orElseThrow(()->new ElementNotFoundException("Category", "404", "Not Found"));
+		 Set<Products> tempList=result.getProductList();
 		 List<ProductsProjection> productList=new ArrayList<ProductsProjection>();
 		 tempList.forEach(x->productList.add(new ProductsProjection(x.getName(), x.getPrice(), x.getDescription(), x.getStock(), x.getCategoryId().getCategoryName(), x.getImagePath(), x.getExpDate())));
 		return productList;
 	}
 
-	@Override
+	@Override //Deleting Product from Product Table and from Cart-Item table Only
 	public void deleteProduct(Long productId) {
-		Products product=productRepository.getReferenceById(productId);
+		Products product=productRepository.findById(productId).orElseThrow(()->new ElementNotFoundException("Product", "404", "Not Found"));
 		cartItemsService.deleteByProductId(product);
-		
-		
 		productRepository.deleteById(productId);
 		
 	}
@@ -72,6 +75,10 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<ProductsProjection> findAllProducts() {
 		List<Products> tempList=productRepository.findAll();
+		if(tempList.size()==0) {
+			throw new ElementNotFoundException("Products", "404", "List is Empty");
+			
+		}
 		List<ProductsProjection> list=new ArrayList<ProductsProjection>();
 		tempList.forEach(x->{
 			list.add(new ProductsProjection(x.getName(), x.getPrice(), x.getDescription(), x.getStock(), x.getCategoryId().getCategoryName(), x.getImagePath(), x.getExpDate()));
@@ -81,11 +88,12 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public void updateProduct(ProductsDTO product, Long productId) {
-		Optional<Products> retProduct=productRepository.findById(productId);
-		retProduct.get().setName(product.getName());
-		retProduct.get().setDescription(product.getDescription());
-		retProduct.get().setStock(product.getStock());
-		retProduct.get().setPrice(product.getPrice());
+		Products retProduct=productRepository.findById(productId)
+				.orElseThrow(()->new ElementNotFoundException("Product", "404", "Not Found"));
+		retProduct.setName(product.getName());
+		retProduct.setDescription(product.getDescription());
+		retProduct.setStock(product.getStock());
+		retProduct.setPrice(product.getPrice());
 //		Categories cat=categoryRepository.getReferenceById(product.getCategoryId());
 //		retProduct.get().setCategoryId(cat);
 		

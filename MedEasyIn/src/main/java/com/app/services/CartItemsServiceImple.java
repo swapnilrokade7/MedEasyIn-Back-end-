@@ -10,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.app.custom_exception.ElementNotFoundException;
 import com.app.dto.CartItemDTO;
 import com.app.dto.CartItemRespDTO;
 import com.app.entities.CartItems;
@@ -18,6 +19,7 @@ import com.app.entities.Products;
 import com.app.repository.CartItemsRepository;
 import com.app.repository.CartRepository;
 import com.app.repository.ProductRepository;
+import com.app.repository.UserRepository;
 @Service
 @Transactional
 public class CartItemsServiceImple implements CartItemsService{
@@ -32,6 +34,10 @@ public class CartItemsServiceImple implements CartItemsService{
 	private ProductRepository productRepository;
 
 	@Autowired
+	private UserRepository repository;
+
+	
+	@Autowired
 	private ModelMapper mapper;
 	
 	/*Integer quantity, Double totalPrice, Carts cartId, Products productId) {
@@ -39,10 +45,9 @@ public class CartItemsServiceImple implements CartItemsService{
 	@Override
 	public CartItemRespDTO addToCart(CartItemDTO cartItem) {
 
-		Products product=productRepository.getReferenceById(cartItem.getProductId());
-		Carts cart=cartRepository.getReferenceById(cartItem.getCartId());
-//		
-//		Carts cart1=cartRepository.findById(cartItem.getCartId()).get();
+		Products product=productRepository.findById(cartItem.getProductId()).orElseThrow(()->new ElementNotFoundException("Product", "404", "Not Found"));
+		Carts cart=repository.findById(cartItem.getUserId()).orElseThrow(()->new ElementNotFoundException("Cart", "404", "Not Found"))
+				.getCart();		
 		
 		Double cartItemPrice=product.getPrice()*cartItem.getQuantity();
 		CartItems newCartItem=new CartItems(cartItem.getQuantity(),cartItemPrice,cart,product);
@@ -56,10 +61,15 @@ public class CartItemsServiceImple implements CartItemsService{
 	}
 
 	@Override
-	public Set<CartItems> getCartItems(Long CartId) {
-		Carts cart=cartRepository.getReferenceById(CartId);
-		
-		return  cart.getCartItems();
+	public Set<CartItems> getCartItems(Long userId) {
+		Carts cart=repository.findById(userId).orElseThrow(()->new ElementNotFoundException("Cart", "404", "Not Found"))
+				.getCart();	
+		Set<CartItems> tempList=cart.getCartItems();
+		if(tempList.size()==0) {
+			throw new ElementNotFoundException("CartItems", "404", "List is Empty");
+			
+		}
+		return  tempList;
 	}
 
 	@Override
@@ -67,7 +77,7 @@ public class CartItemsServiceImple implements CartItemsService{
 		cartItemsRepository.deleteByCartId(cartId);	
 	}
 
-	@Override
+	@Override  //used in product service impl while deleting a single product
 	public void deleteByProductId(Products product) {
 		List<CartItems> cartItems=cartItemsRepository.findByProductId(product);
 		cartItems.forEach(x->{
@@ -79,15 +89,14 @@ public class CartItemsServiceImple implements CartItemsService{
 			items.remove(x);
 			
 		});
-		
-		
 		cartItemsRepository.deleteByProductId(product);
 		
 	}
 
 	@Override
 	public void deleteItem(Long cartItemId) {
-		CartItems item=cartItemsRepository.getReferenceById(cartItemId);
+		CartItems item=cartItemsRepository.findById(cartItemId)
+				.orElseThrow(()->new ElementNotFoundException("Item", "404", "Not Found"));
 		Carts cart=item.getCartId();
 		cart.getCartItems().remove(item);
 		

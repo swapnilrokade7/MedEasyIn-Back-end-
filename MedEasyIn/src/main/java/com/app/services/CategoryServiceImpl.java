@@ -1,14 +1,15 @@
 package com.app.services;
 
 import java.util.List;
-import java.util.Locale.Category;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.app.dto.CatagoryDTO;
 import com.app.entities.Categories;
 import com.app.repository.CategoryRepository;
 import com.app.repository.ProductRepository;
@@ -24,9 +25,11 @@ public class CategoryServiceImpl implements CategoryService {
 	private ProductRepository productRepository;
 	
 	@Override
-	public Categories saveCategory(Categories Category) {
+	public Categories saveCategory(CatagoryDTO Category) {
 		
-		return categoryRepository.save(Category);
+		Categories cat=new Categories();
+		BeanUtils.copyProperties(Category, cat);
+		return categoryRepository.save(cat);
 	}
 	
 	@Override
@@ -44,10 +47,10 @@ public class CategoryServiceImpl implements CategoryService {
 	
 
 	@Override
-	public void deleteProductsByCategory(Long categoryId) {
-		Optional<Categories> category=getCategory(categoryId);
+	public void deleteCategory(Long categoryId) {
+//		Optional<Categories> category=getCategory(categoryId);
 		categoryRepository.deleteById(categoryId);
-		productRepository.deleteByCategoryId(category.get());
+//		productRepository.deleteByCategoryId(category.get());
 		
 	}
 	

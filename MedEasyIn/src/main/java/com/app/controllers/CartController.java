@@ -33,8 +33,4 @@ public class CartController {
 		return new ResponseEntity<>(cartService.getMyCart(cartId), HttpStatus.CREATED);
 	}
 	
-	
-	
-
-	
 }

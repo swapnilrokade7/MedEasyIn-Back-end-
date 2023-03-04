@@ -6,26 +6,41 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.Valid;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.NumberFormat;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
-
+@Valid
 @Entity
 @Table(name = "users_tbl")
 public class Users extends BaseEntity{
 	@Column(name="first_name" ,length = 25)
+	@NotBlank(message = "Fist Name should Not be Blank")
 	private String firstName;
 	@Column(name="last_name" ,length = 25)
+	@NotBlank(message = "Last Name should Not be Blank")
 	private String lastName;
 	@Column(name="email" ,length = 50,unique = true,nullable = false)
+	@Email(message = "Email should be Proper")
 	private String email;
 	@JsonProperty(access = Access.WRITE_ONLY)
 	@Column(name="password" ,length = 25,nullable = false)
+	@Pattern(regexp ="((?=.*\\d)(?=.*[a-z])(?=.*[#@$*]).{5,20})",message = "Invalid Password !")
 	private String password;
 	@Enumerated(EnumType.STRING)
 	@Column(name="role" ,length = 15)
 	private Role role;
 	@Column(length=10,unique = true,nullable = false)
+	@Min(10)
+	@Max(10)
 	private Long mobile_number;
 	
 	@OneToOne(mappedBy = "user")

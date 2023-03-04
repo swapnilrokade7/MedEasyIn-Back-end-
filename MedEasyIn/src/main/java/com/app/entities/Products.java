@@ -3,25 +3,37 @@ package com.app.entities;
 import java.time.LocalDate;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PositiveOrZero;
 
+import org.aspectj.lang.annotation.Before;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-
+@Valid
 @Entity
 @Table(name = "products")
 public class Products extends BaseEntity{
 	@Column(name = "name",length = 20,nullable = false)
+	@NotBlank(message = "Name Should Not Be Empty")
 	private String name;
 	@Column(nullable = false)
+	@PositiveOrZero(message = "Price should be Non-Negative")
 	private Double price;
 	private String description;
+	@PositiveOrZero(message = "stock should be Non-Negative")
 	private Integer stock;
 	@ManyToOne
 	@JoinColumn(name="category_id")
+	@NotBlank(message = "Category Should Not Be Empty")
 	private Categories categoryId;
 	@Column(name = "image_path")
+	@NotBlank(message = "imagePath Should Not Be Empty")
 	private String imagePath;
 	@Column(name = "exp_date")
+	@Future(message = "Date must be in Future")
 	private LocalDate expDate;
 //	@ManyToMany
 //	@JoinColumn(name="order_id")

@@ -28,8 +28,6 @@ public class CartItemController {
 	
 	@PostMapping
 	public ResponseEntity<?> addToCart(@RequestBody CartItemDTO cartItem) {
-		System.out.println(cartItem);
-//		CartItems cartItems=cartItemsService.addToCart(cartItem);
 
 		return new ResponseEntity<>(cartItemsService.addToCart(cartItem), HttpStatus.CREATED);
 	}

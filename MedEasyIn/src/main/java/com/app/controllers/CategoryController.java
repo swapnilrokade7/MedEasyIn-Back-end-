@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.dto.CatagoryDTO;
 import com.app.entities.Categories;
 import com.app.services.CategoryService;
 
@@ -22,7 +23,7 @@ public class CategoryController {
 	private CategoryService categoryService;
 	
 	@PostMapping 
-    public ResponseEntity<?> saveCategory(@RequestBody Categories category)
+    public ResponseEntity<?> saveCategory(@RequestBody CatagoryDTO category)
     {
         return new ResponseEntity<>(categoryService.saveCategory(category), HttpStatus.CREATED);
     }
@@ -32,15 +33,15 @@ public class CategoryController {
     {
         return new ResponseEntity<>(categoryService.getAllCategories(), HttpStatus.CREATED);
     }
-	
-	@DeleteMapping("/{categoryId}") 
-    public ResponseEntity<?> deleteProduct(@PathVariable Long categoryId)
-    {
-		
-		categoryService.deleteProductsByCategory(categoryId);
-
-    	return new ResponseEntity<>(HttpStatus.OK);
-    }
+//	
+//	@DeleteMapping("/{categoryId}") 
+//    public ResponseEntity<?> deleteCategory(@PathVariable Long categoryId)
+//    {
+//		
+//		categoryService.deleteCategory(categoryId);
+//
+//    	return new ResponseEntity<>(HttpStatus.OK);
+//    }
 	
 	
 

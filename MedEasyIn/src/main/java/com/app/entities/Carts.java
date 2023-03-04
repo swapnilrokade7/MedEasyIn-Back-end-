@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.PositiveOrZero;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -24,8 +25,10 @@ public class Carts extends BaseEntity{
 	@Column(name="updated")
 	private LocalDate updated;
 	@Column(name="totalItems")
+	@PositiveOrZero(message = "Can't be Negative")
 	private int totalItems;
 	@Column(name="totalPrice")
+	@PositiveOrZero(message = "Can't be Negative")
 	private double totalPrice;
 	@ElementCollection
 	@OneToMany(mappedBy ="cartId")

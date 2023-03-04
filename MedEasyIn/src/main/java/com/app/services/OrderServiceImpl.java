@@ -104,6 +104,13 @@ public class OrderServiceImpl implements OrderService {
 		
 		return list;
 	}
+
+
+
+	@Override
+	public void deleteOrder(Long orderId) {		
+		orderRepository.deleteById(orderId);	
+	}
 	
 	
 	

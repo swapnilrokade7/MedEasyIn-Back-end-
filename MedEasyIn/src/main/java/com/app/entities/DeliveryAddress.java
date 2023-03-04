@@ -1,21 +1,35 @@
 package com.app.entities;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.validation.Valid;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+@Valid
 @Entity
 @Table(name="delivery_address")
 public class DeliveryAddress extends BaseEntity{
 	@Column(length = 50,nullable = false)
+	@NotBlank(message = "Address cannot be Blank")
 	private String adress_Line1;
 	@Column(length = 50,nullable = false)
 	private String adress_Line2;
 	@Column(length = 50,nullable = false)
+	@NotBlank(message = "City cannot be Blank")
 	private String city;
 	@Column(length = 50,nullable = false)
+	@NotBlank(message = "State cannot be Blank")
 	private String state;
 	@Column(length = 50,nullable = false)
+	@Min(6)
+	@Max(6)
 	private String zipCode;
 	@OneToOne
 	@JoinColumn(name="order_id")

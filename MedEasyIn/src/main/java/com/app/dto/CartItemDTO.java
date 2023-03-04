@@ -2,18 +2,19 @@ package com.app.dto;
 
 public class CartItemDTO {
 	private Integer quantity;
-	private Long cartId;
+	private Long userId;
 	private Long productId;
-	
-	public CartItemDTO() {
-		
-	}
 
-	public CartItemDTO(Integer quantity, Long cartId, Long productId) {
+
+	public CartItemDTO(Integer quantity, Long userId, Long productId) {
 		super();
 		this.quantity = quantity;
-		this.cartId = cartId;
+		this.userId = userId;
 		this.productId = productId;
+	}
+
+	public CartItemDTO() {
+		super();
 	}
 
 	public Integer getQuantity() {
@@ -24,12 +25,12 @@ public class CartItemDTO {
 		this.quantity = quantity;
 	}
 
-	public Long getCartId() {
-		return cartId;
+	public Long getUserId() {
+		return userId;
 	}
 
-	public void setCartId(Long cartId) {
-		this.cartId = cartId;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
 	public Long getProductId() {
@@ -40,11 +41,7 @@ public class CartItemDTO {
 		this.productId = productId;
 	}
 
-	@Override
-	public String toString() {
-		return "CartItemDTO [quantity=" + quantity + ", cartId=" + cartId + ", productId=" + productId + "]";
-	}
-	
+
 	
 
 }

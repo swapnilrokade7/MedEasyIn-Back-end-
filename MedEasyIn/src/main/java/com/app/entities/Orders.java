@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.PositiveOrZero;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -12,8 +15,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name="orders")
 public class Orders extends BaseEntity{
 	@Column(nullable = false)
+	@PastOrPresent(message = "Delivery Date must not be in Future")
 	private LocalDate orderDate;
 	@Column(nullable = false)
+	@Future(message = "Delivery Date must be in Future")
 	private LocalDate deliveryDate;
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
@@ -21,14 +26,14 @@ public class Orders extends BaseEntity{
 	@Column(nullable = false)
 	private double totalPrice;
 	@Column
+	@PositiveOrZero(message = "Price cant be Negative")
 	private double shippingPrice;
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private Users userOrdered;
-	@OneToMany(mappedBy = "orderId")
-	
+	@OneToMany(mappedBy = "orderId",cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<OrderDetails> orderDetailsSet = new ArrayList<OrderDetails>();
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	private DeliveryAddress address;
 	
 	
