@@ -5,6 +5,8 @@ import javax.persistence.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "cart_items")
 public class CartItems extends BaseEntity{
@@ -14,9 +16,11 @@ public class CartItems extends BaseEntity{
 	private Double totalPrice;
 	@ManyToOne
 	@JoinColumn(name = "cart_id")
+    @JsonIgnore
 	private Carts cartId;
 	@OneToOne
 	@JoinColumn(name = "product_id")
+	
 	private Products productId;
 	
 	public CartItems() {

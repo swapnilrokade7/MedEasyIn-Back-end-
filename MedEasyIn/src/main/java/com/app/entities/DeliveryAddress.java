@@ -2,6 +2,8 @@ package com.app.entities;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="delivery_address")
 public class DeliveryAddress extends BaseEntity{
@@ -17,6 +19,7 @@ public class DeliveryAddress extends BaseEntity{
 	private String zipCode;
 	@OneToOne
 	@JoinColumn(name="order_id")
+	@JsonIgnore
 	private Orders orderInfo;
 	
 	public DeliveryAddress() {

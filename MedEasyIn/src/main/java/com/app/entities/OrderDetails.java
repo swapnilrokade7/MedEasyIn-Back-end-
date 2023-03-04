@@ -2,6 +2,8 @@ package com.app.entities;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="order_details")
 public class OrderDetails extends BaseEntity{
@@ -9,6 +11,7 @@ public class OrderDetails extends BaseEntity{
 	private Double totalPrice;
 	@ManyToOne
 	@JoinColumn(name="order_id")
+	@JsonIgnore
 	private Orders orderId;
 	@OneToOne
 	@JoinColumn(name="product_id")

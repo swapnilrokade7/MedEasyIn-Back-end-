@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="orders")
 public class Orders extends BaseEntity{
@@ -24,6 +26,7 @@ public class Orders extends BaseEntity{
 	@JoinColumn(name = "user_id")
 	private Users userOrdered;
 	@OneToMany(mappedBy = "orderId")
+	
 	private List<OrderDetails> orderDetailsSet = new ArrayList<OrderDetails>();
 	@OneToOne
 	private DeliveryAddress address;
@@ -45,6 +48,25 @@ public class Orders extends BaseEntity{
 		this.shippingPrice = shippingPrice;
 		this.userOrdered = userOrdered;
 		this.address = address;
+	}
+	
+	public Orders(LocalDate orderDate, LocalDate deliveryDate, Status status, double totalPrice, double shippingPrice,
+			String userOrdered, String address) {
+		super();
+		this.orderDate = orderDate;
+		this.deliveryDate = deliveryDate;
+		this.status = status;
+		this.totalPrice = totalPrice;
+		this.shippingPrice = shippingPrice;
+		
+	}
+
+
+	@Override
+	public String toString() {
+		return "Orders [orderDate=" + orderDate + ", deliveryDate=" + deliveryDate + ", status=" + status
+				+ ", totalPrice=" + totalPrice + ", shippingPrice=" + shippingPrice + ", userOrdered=" + userOrdered
+				+ ", orderDetailsSet=" + orderDetailsSet + ", address=" + address + "]";
 	}
 
 

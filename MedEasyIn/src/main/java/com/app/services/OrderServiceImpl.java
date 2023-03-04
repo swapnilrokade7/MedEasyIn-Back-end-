@@ -1,6 +1,8 @@
 package com.app.services;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.transaction.Transactional;
@@ -67,6 +69,23 @@ public class OrderServiceImpl implements OrderService {
 		
 		
 		return  new OrdersRespDTO(neworder.getOrderDate(), neworder.getDeliveryDate(), neworder.getStatus(), neworder.getTotalPrice(), neworder.getShippingPrice(), user.getId(), addedAddress.getId());
+	}
+
+
+
+	@Override
+	public List<Orders> getAllOrders() {
+		
+		List<Orders> list=orderRepository.findAll();
+		list.forEach(x->{
+			x.getOrderDetails().forEach(y->{y.getQuantity();});
+			x.getUserOrdered().getCart().getCartItems().forEach(z->z.getQuantity());
+			x.getAddress().getAdress_Line1();
+		});
+		
+		
+		return list;
+				
 	}
 	
 	
