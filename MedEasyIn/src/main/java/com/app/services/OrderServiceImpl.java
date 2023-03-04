@@ -3,6 +3,7 @@ package com.app.services;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.transaction.Transactional;
@@ -87,6 +88,24 @@ public class OrderServiceImpl implements OrderService {
 		return list;
 				
 	}
+
+
+
+	@Override
+	public List<Orders> getMyOrders(Long Id) {
+		Optional<Users> user=userRepository.findById(Id);
+		
+		List<Orders> list=orderRepository.findByUserOrdered(user.get());
+		list.forEach(x->{
+			x.getOrderDetails().forEach(y->{y.getQuantity();});
+			x.getUserOrdered().getCart().getCartItems().forEach(z->z.getQuantity());
+			x.getAddress().getAdress_Line1();
+		});
+		
+		return list;
+	}
+	
+	
 	
 	
 	

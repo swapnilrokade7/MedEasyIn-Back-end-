@@ -35,5 +35,12 @@ public class OrderController {
 		return new ResponseEntity<>( orderService.getAllOrders(),HttpStatus.CREATED);
 	} 
 	
+	@GetMapping("/{custId}")
+	public ResponseEntity<?> getMyOrders(@PathVariable Long custId)
+	{	
+		
+		return new ResponseEntity<>( orderService.getMyOrders(custId),HttpStatus.CREATED);
+	} 
+	
 
 }
