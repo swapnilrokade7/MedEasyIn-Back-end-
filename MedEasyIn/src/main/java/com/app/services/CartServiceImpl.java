@@ -1,14 +1,20 @@
 package com.app.services;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.app.dto.CartItemRespDTO;
+import com.app.entities.CartItems;
 import com.app.entities.Carts;
+import com.app.entities.Products;
 import com.app.entities.Users;
 import com.app.repository.CartItemsRepository;
 import com.app.repository.CartRepository;
@@ -42,6 +48,18 @@ public class CartServiceImpl implements CartService {
 		
 		cartItemsService.DeleteCartItemsFromCart(cart);
 		
+	}
+
+	@Override
+	public List<CartItemRespDTO> getMyCart(Long cartId) {
+		Carts cart=cartRepository.getReferenceById(cartId);
+		List<CartItemRespDTO> tempList = new ArrayList<CartItemRespDTO>();
+		cart.getCartItems().forEach(x->{
+			Products prod=x.getProductId();
+			tempList.add(new CartItemRespDTO(x.getQuantity(), x.getTotalPrice(), x.getCartId().getId(), x.getProductId().getId()));
+		});
+		
+		return tempList ;
 	}
 	
 

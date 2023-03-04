@@ -1,5 +1,7 @@
 package com.app.services;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 import javax.transaction.Transactional;
@@ -39,7 +41,8 @@ public class CartItemsServiceImple implements CartItemsService{
 
 		Products product=productRepository.getReferenceById(cartItem.getProductId());
 		Carts cart=cartRepository.getReferenceById(cartItem.getCartId());
-//		Optional<Carts> cart=cartRepository.findById(cartItem.getCartId());
+//		
+//		Carts cart1=cartRepository.findById(cartItem.getCartId()).get();
 		
 		Double cartItemPrice=product.getPrice()*cartItem.getQuantity();
 		CartItems newCartItem=new CartItems(cartItem.getQuantity(),cartItemPrice,cart,product);
@@ -62,6 +65,37 @@ public class CartItemsServiceImple implements CartItemsService{
 	@Override
 	public void DeleteCartItemsFromCart(Carts cartId) {
 		cartItemsRepository.deleteByCartId(cartId);	
+	}
+
+	@Override
+	public void deleteByProductId(Products product) {
+		List<CartItems> cartItems=cartItemsRepository.findByProductId(product);
+		cartItems.forEach(x->{
+			Carts cart=x.getCartId();
+			Set<CartItems> items=cart.getCartItems();
+			cart.setTotalItems(cart.getTotalItems()-1);
+			cart.setTotalPrice(cart.getTotalItems()-x.getTotalPrice());
+			cart.setUpdated(LocalDate.now());
+			items.remove(x);
+			
+		});
+		
+		
+		cartItemsRepository.deleteByProductId(product);
+		
+	}
+
+	@Override
+	public void deleteItem(Long cartItemId) {
+		CartItems item=cartItemsRepository.getReferenceById(cartItemId);
+		Carts cart=item.getCartId();
+		cart.getCartItems().remove(item);
+		
+		cart.setTotalItems(cart.getTotalItems()-1);
+		cart.setTotalPrice(cart.getTotalItems()-item.getTotalPrice());
+		cart.setUpdated(LocalDate.now());
+		cartItemsRepository.deleteById(cartItemId);	
+		
 	}
 	
 	

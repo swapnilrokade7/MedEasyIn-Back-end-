@@ -1,33 +1,34 @@
-package com.app.dto;
+package com.app.entities.projections;
 
 import java.time.LocalDate;
 
-public class ProductsRespDTO {
+public class ProductsProjection {
 	private String name;
 	private Double price;
 	private String description;
 	private Integer stock;
+	private String categoryName;
 	private String imagePath;
 	private LocalDate expDate;
 
 	/*{"name":"Crocine","price":"12.0","description":"Fever Tablet","stock":"500","categoryId":"1","imagePath":"images/kiara.jpg"}*/
 	
 	
-	
-
-
-	public ProductsRespDTO() {
+	public ProductsProjection() {
 		super();
 		System.out.println("in ctor "+getClass().getName());
 	}
 
 
-	public ProductsRespDTO(String name, Double price, String description, Integer stock, LocalDate expDate) {
+	public ProductsProjection(String name, Double price, String description, Integer stock, String categoryName,
+			String imagePath, LocalDate expDate) {
 		super();
 		this.name = name;
 		this.price = price;
 		this.description = description;
 		this.stock = stock;
+		this.categoryName = categoryName;
+		this.imagePath = imagePath;
 		this.expDate=expDate;
 	}
 
@@ -71,6 +72,27 @@ public class ProductsRespDTO {
 		this.stock = stock;
 	}
 
+
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+
+
+	public String getImagePath() {
+		return imagePath;
+	}
+
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
+
+
 	public LocalDate getExpDate() {
 		return expDate;
 	}
@@ -79,6 +101,9 @@ public class ProductsRespDTO {
 	public void setExpDate(LocalDate expDate) {
 		this.expDate = expDate;
 	}
+	
+	
+
 	
 
 

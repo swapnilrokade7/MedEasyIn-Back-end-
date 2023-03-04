@@ -1,6 +1,11 @@
 package com.app.entities;
 
+import java.time.LocalDate;
+
 import javax.persistence.*;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "products")
@@ -16,6 +21,8 @@ public class Products extends BaseEntity{
 	private Categories categoryId;
 	@Column(name = "image_path")
 	private String imagePath;
+	@Column(name = "exp_date")
+	private LocalDate expDate;
 //	@ManyToMany
 //	@JoinColumn(name="order_id")
 //	private Orders orderId;
@@ -97,6 +104,18 @@ public class Products extends BaseEntity{
 	public void setCategoryId(Categories categoryId) {
 		this.categoryId = categoryId;
 	}
+
+
+	public LocalDate getExpDate() {
+		return expDate;
+	}
+
+
+	public void setExpDate(LocalDate expDate) {
+		this.expDate = expDate;
+	}
+	
+	
 
 
 	

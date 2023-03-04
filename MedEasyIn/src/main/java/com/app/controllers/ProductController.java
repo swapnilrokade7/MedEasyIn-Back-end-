@@ -1,14 +1,17 @@
 package com.app.controllers;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.app.dto.ProductsDTO;
+import com.app.entities.projections.ProductsProjection;
 import com.app.services.ImageHandlingService;
 import com.app.services.ProductService;
 
@@ -44,11 +48,48 @@ public class ProductController
 //        return new ResponseEntity<>(HttpStatus.OK);
 //    }
   //URL : http://localhost:8080/products/
-//    @GetMapping 
-//    public ResponseEntity<?> getAllProducts()
+    
+    @GetMapping 
+    public ResponseEntity<?> getAllProducts()
+    {
+        return new ResponseEntity<>(productService.findAllProducts(), HttpStatus.OK);
+    }
+    
+    @PutMapping("/{productId}")
+    public ResponseEntity<?> updateProduct(@PathVariable Long productId, @RequestBody ProductsDTO product)
+    {
+    	productService.updateProduct(product,productId);
+        return new ResponseEntity<>("Product Updated", HttpStatus.CREATED);
+    }
+    
+    
+    
+    
+    
+    @GetMapping(value = "/Category/{categoryId}")
+ 	public ResponseEntity<List<ProductsProjection>> getProductsByCategory1(@PathVariable Long categoryId){
+ 		
+ 		return new ResponseEntity<List<ProductsProjection>>(productService.getProductsByCategory(categoryId) , HttpStatus.CREATED);
+ 	}
+    
+    @DeleteMapping("/{productId}") 
+    public ResponseEntity<String> deleteProduct(@PathVariable Long productId)
+    {
+    	productService.deleteProduct(productId);
+
+    	return new ResponseEntity<>("Product Deleted",HttpStatus.OK);
+    }
+    
+//    @DeleteMapping("category/{categoryId}") 
+//    public ResponseEntity<String> deleteProductByCategory(@PathVariable Long categoryId)
 //    {
-//        return new ResponseEntity<>(productService.findAllProducts(), HttpStatus.OK);
+//    	productService.deleteProductByCategory(categoryId);
+//
+//    	return new ResponseEntity<>("Products of Category deleted",HttpStatus.OK);
 //    }
+    
+    
+    
  // Add REST end point to upload image
  	// URL : http://host:port/products/{productId}/image , Method=POST
  	@PostMapping(value="/{productId}/image",consumes = "multipart/form-data")

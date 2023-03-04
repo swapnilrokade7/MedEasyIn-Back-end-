@@ -3,6 +3,8 @@ package com.app.dto;
 public class CartItemRespDTO {
 	private Integer quantity;
 	private Double totalPrice;
+	private Long cartId;
+	private Long productId;
 	
 	public CartItemRespDTO() {
 		
@@ -11,6 +13,31 @@ public class CartItemRespDTO {
 	public CartItemRespDTO(Integer quantity, Double totalPrice) {
 		super();
 		this.quantity = quantity;
+	}
+	
+
+	public Long getCartId() {
+		return cartId;
+	}
+
+	public void setCartId(Long cartId) {
+		this.cartId = cartId;
+	}
+
+	public Long getProductId() {
+		return productId;
+	}
+
+	public void setProductId(Long productId) {
+		this.productId = productId;
+	}
+
+	public CartItemRespDTO(Integer quantity, Double totalPrice, Long cartId, Long productId) {
+		super();
+		this.quantity = quantity;
+		this.totalPrice = totalPrice;
+		this.cartId = cartId;
+		this.productId = productId;
 	}
 
 	public Integer getQuantity() {

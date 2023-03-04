@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.app.dto.DeliveryAddressDTO;
+import com.app.dto.OrdersRespDTO;
 import com.app.entities.CartItems;
 import com.app.entities.Carts;
 import com.app.entities.DeliveryAddress;
@@ -43,7 +44,7 @@ public class OrderServiceImpl implements OrderService {
 	
 
 	@Override
-	public Orders placeOrder(Long userId,DeliveryAddressDTO address) {
+	public OrdersRespDTO placeOrder(Long userId,DeliveryAddressDTO address) {
 		DeliveryAddress trueAddress=new DeliveryAddress(address.getAdress_Line1(),address.getAdress_Line2(),address.getCity(),address.getState(),address.getZipCode());
 		DeliveryAddress addedAddress=addressRepository.save(trueAddress);
 		Users user=userRepository.getReferenceById(userId);
@@ -61,10 +62,11 @@ public class OrderServiceImpl implements OrderService {
 		neworder.setTotalPrice(cart.getTotalPrice()+neworder.getShippingPrice());
 		neworder.setStatus(Status.PLACED);
 		cartService.emptyTheCart(cart.getId());
-		//Repo Delete method Call for CartItems (Death of Cart is Birth Of Order)
 		
 		
-		return  neworder;
+		
+		
+		return  new OrdersRespDTO(neworder.getOrderDate(), neworder.getDeliveryDate(), neworder.getStatus(), neworder.getTotalPrice(), neworder.getShippingPrice(), user.getId(), addedAddress.getId());
 	}
 	
 	

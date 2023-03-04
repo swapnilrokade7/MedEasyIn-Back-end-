@@ -1,12 +1,16 @@
 package com.app.dto;
 
+import java.time.LocalDate;
+
 public class ProductsDTO {
 	private String name;
 	private Double price;
 	private String description;
 	private Integer stock;
 	private Long categoryId;
-	private String imagePath;
+	private LocalDate expDate;
+
+	
 	/*{"name":"Crocine","price":"12.0","description":"Fever Tablet","stock":"500","categoryId":"1","imagePath":"images/kiara.jpg"}*/
 	
 	
@@ -16,14 +20,27 @@ public class ProductsDTO {
 	}
 
 
-	public ProductsDTO(String name, Double price, String description, Integer stock, Long categoryId) {
+	public ProductsDTO(String name, Double price, String description, Integer stock, Long categoryId,
+			LocalDate expDate) {
 		super();
 		this.name = name;
 		this.price = price;
 		this.description = description;
 		this.stock = stock;
 		this.categoryId = categoryId;
+		this.expDate = expDate;
 	}
+	
+	public ProductsDTO(String name, Double price, String description, Integer stock,
+			LocalDate expDate) {
+		super();
+		this.name = name;
+		this.price = price;
+		this.description = description;
+		this.stock = stock;
+		this.expDate = expDate;
+	}
+	
 
 
 	public String getName() {
@@ -74,6 +91,19 @@ public class ProductsDTO {
 	public void setCategoryId(Long categoryId) {
 		this.categoryId = categoryId;
 	}
+
+
+	public LocalDate getExpDate() {
+		return expDate;
+	}
+
+
+	public void setExpDate(LocalDate expDate) {
+		this.expDate = expDate;
+	}
+
+
+	
 
 
 	
