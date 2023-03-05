@@ -11,6 +11,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.app.custom_exception.ElementNotFoundException;
 import com.app.dto.CartItemRespDTO;
 import com.app.entities.CartItems;
 import com.app.entities.Carts;
@@ -18,6 +19,7 @@ import com.app.entities.Products;
 import com.app.entities.Users;
 import com.app.repository.CartItemsRepository;
 import com.app.repository.CartRepository;
+import com.app.repository.UserRepository;
 
 @Service
 @Transactional
@@ -25,6 +27,9 @@ public class CartServiceImpl implements CartService {
 
 	@Autowired
 	private CartRepository cartRepository;
+	
+	@Autowired
+	private UserRepository repository;
 	
 	@Autowired
 	private CartItemsService cartItemsService;
@@ -39,8 +44,10 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public void emptyTheCart(Long cartId) {
-		Carts cart=cartRepository.getReferenceById(cartId);
+	public void emptyTheCart(Long userId) {
+		Carts cart=repository.findById(userId).orElseThrow(()->new ElementNotFoundException("User", "404", "Not Found")).getCart();
+//		cart.getCartItems().forEach(x->{
+//		});		
 		cart.emptyCartItems();
 		cart.setTotalItems(0);
 		cart.setTotalPrice(0);
@@ -50,16 +57,32 @@ public class CartServiceImpl implements CartService {
 		
 	}
 
+//	@Override
+//	public List<CartItemRespDTO> getMyCart(Long userId) {
+//		
+//		Carts cart=repository.findById(userId).orElseThrow(()->new ElementNotFoundException("User", "404", "Not Found")).getCart();
+//		List<CartItemRespDTO> tempList = new ArrayList<CartItemRespDTO>();
+//		if(cart.getTotalItems()==0) {throw new ElementNotFoundException("Cart ", "404", " is Empty");}
+//		
+//		cart.getCartItems().forEach(x->{
+//			tempList.add(new CartItemRespDTO(x.getQuantity(), x.getTotalPrice(), x.getCartId().getId(), x.getProductId().getId()));
+//		});
+//		
+//		return tempList ;
+//	}
+	
 	@Override
-	public List<CartItemRespDTO> getMyCart(Long cartId) {
-		Carts cart=cartRepository.getReferenceById(cartId);
+	public Carts getMyCart(Long userId) {
+		
+		Carts cart=repository.findById(userId).orElseThrow(()->new ElementNotFoundException("User", "404", "Not Found")).getCart();
 		List<CartItemRespDTO> tempList = new ArrayList<CartItemRespDTO>();
+		if(cart.getTotalItems()==0) {throw new ElementNotFoundException("Cart ", "404", " is Empty");}
+		
 		cart.getCartItems().forEach(x->{
-			Products prod=x.getProductId();
 			tempList.add(new CartItemRespDTO(x.getQuantity(), x.getTotalPrice(), x.getCartId().getId(), x.getProductId().getId()));
 		});
 		
-		return tempList ;
+		return cart ;
 	}
 	
 

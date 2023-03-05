@@ -19,18 +19,18 @@ public class CartController {
 	private CartService cartService;
 	
 	
-	@DeleteMapping("/{cartId}")
-	public ResponseEntity<String> emptyTheCart(@PathVariable Long cartId) {
-		cartService.emptyTheCart(cartId);
+	@DeleteMapping("/{userId}")
+	public ResponseEntity<String> emptyTheCart(@PathVariable Long userId) {
+		cartService.emptyTheCart(userId);
 
 		return new ResponseEntity<String>("Cart is Empty", HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/{cartId}")
-	public ResponseEntity<?> getMyCart(@PathVariable Long cartId) {
+	@GetMapping("/{userId}")
+	public ResponseEntity<?> getMyCart(@PathVariable Long userId) {
 		
 
-		return new ResponseEntity<>(cartService.getMyCart(cartId), HttpStatus.CREATED);
+		return new ResponseEntity<>(cartService.getMyCart(userId), HttpStatus.CREATED);
 	}
 	
 }

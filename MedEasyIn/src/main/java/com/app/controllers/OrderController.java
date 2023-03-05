@@ -1,7 +1,5 @@
 package com.app.controllers;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,13 +7,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.dto.DeliveryAddressDTO;
-import com.app.entities.Orders;
-import com.app.repository.OrderRepository;
+import com.app.dto.OrderStatusDTO;
 import com.app.services.OrderService;
 
 @RestController
@@ -31,6 +29,8 @@ public class OrderController {
 	@PostMapping("/{userId}")
 	public ResponseEntity<?> placeOrder(@PathVariable Long userId ,@RequestBody DeliveryAddressDTO address )
 	{	
+		
+
 		return new ResponseEntity<>(orderService.placeOrder(userId,address), HttpStatus.CREATED);
 	} 
 	
@@ -49,13 +49,28 @@ public class OrderController {
 		return new ResponseEntity<>( orderService.getMyOrders(custId),HttpStatus.CREATED);
 	} 
 	
-	@DeleteMapping("/{orderId}")
-	public ResponseEntity<String> deleteOrder(@PathVariable Long orderId)
+	@PutMapping("cancel/{orderId}")//User
+	public ResponseEntity<String> cancelOrder(@PathVariable Long orderId)
 	{	
 		
-		orderService.deleteOrder(orderId);
+		orderService.cancelOrder(orderId);
 		return new ResponseEntity<String>( "Order Deleted",HttpStatus.CREATED);
 	} 
 	
+	@DeleteMapping("user/{userId}")//User
+	public ResponseEntity<String> deleteOrders(@PathVariable Long userId)
+	{	
+		
+		orderService.deleteOrders(userId);
+		return new ResponseEntity<String>( "Order Deleted",HttpStatus.CREATED);
+	} 
+	
+	@PutMapping("/admin")
+	public ResponseEntity<String> updateOrderStatus(@RequestBody OrderStatusDTO order)
+	{	
+		
+		orderService.updateOrderStatus(order.getOrderId(), order.getStatus());
+		return new ResponseEntity<String>( "Order Deleted",HttpStatus.CREATED);
+	} 
 
 }

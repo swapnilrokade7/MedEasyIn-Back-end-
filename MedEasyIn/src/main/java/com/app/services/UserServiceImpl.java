@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService{
 	private CartService cartService;
 	
 	@Autowired
-	private CartItemsService cartItemsService;
+	private OrderService orderService;
 	
 	@Autowired
 	private ModelMapper mapper;
@@ -51,8 +51,9 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public String deleteUserDetails(Long userId) {
-		Users user=userRepo.findById(userId).orElseThrow(()-> new ElementNotFoundException("User", "404", "Not Found"));
-		cartItemsService.DeleteCartItemsFromCart(user.getCart());
+//		Users user=userRepo.findById(userId).orElseThrow(()-> new ElementNotFoundException("User", "404", "Not Found"));
+		cartService.emptyTheCart(userId);
+		orderService.deleteOrders(userId);
 		userRepo.deleteById(userId);
 		return "User is Deleted";
 	}

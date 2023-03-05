@@ -11,6 +11,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.app.custom_exception.ElementNotFoundException;
 import com.app.dto.DeliveryAddressDTO;
 import com.app.dto.OrdersRespDTO;
 import com.app.entities.CartItems;
@@ -28,29 +29,30 @@ import com.app.repository.UserRepository;
 @Service
 @Transactional
 public class OrderServiceImpl implements OrderService {
-	
+
 	@Autowired
 	private OrderRepository orderRepository;
-	
+
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Autowired
 	private AddressRepository addressRepository;
-	
+
 	@Autowired
-    private OrderDetailsRepository detailsRepository;
-	
+	private OrderDetailsRepository detailsRepository;
+
 	@Autowired
 	private CartService cartService;
-	
-	
+
+
 
 	@Override
 	public OrdersRespDTO placeOrder(Long userId,DeliveryAddressDTO address) {
+
 		DeliveryAddress trueAddress=new DeliveryAddress(address.getAdress_Line1(),address.getAdress_Line2(),address.getCity(),address.getState(),address.getZipCode());
 		DeliveryAddress addedAddress=addressRepository.save(trueAddress);
-		Users user=userRepository.getReferenceById(userId);
+		Users user=userRepository.findById(userId).orElseThrow(()->new ElementNotFoundException("User", "404", "Not Found1231321231231"));
 		Orders order=new Orders( LocalDate.now(),LocalDate.of(2024, 12, 12), Status.PLACED, 0, 40 , user, addedAddress);
 		Orders neworder=orderRepository.save(order);
 		addedAddress.setOrderInfo(neworder);
@@ -58,17 +60,17 @@ public class OrderServiceImpl implements OrderService {
 		Set<CartItems> cartItems=user.getCart().getCartItems();
 		cartItems.forEach(x->{
 			OrderDetails oDetails = new OrderDetails(x.getQuantity() , x.getTotalPrice(),neworder,x.getProductId());
-			System.out.println(oDetails);
-            neworder.setOrderDetails(detailsRepository.save(oDetails));
-            
+			x.getProductId().setStock(x.getProductId().getStock()-x.getQuantity());//Product Stock is Updated (Decreased)
+			neworder.setOrderDetails(detailsRepository.save(oDetails));
+
 		});
 		neworder.setTotalPrice(cart.getTotalPrice()+neworder.getShippingPrice());
 		neworder.setStatus(Status.PLACED);
-		cartService.emptyTheCart(cart.getId());
-		
-		
-		
-		
+		cartService.emptyTheCart(user.getId());
+
+
+
+
 		return  new OrdersRespDTO(neworder.getOrderDate(), neworder.getDeliveryDate(), neworder.getStatus(), neworder.getTotalPrice(), neworder.getShippingPrice(), user.getId(), addedAddress.getId());
 	}
 
@@ -76,17 +78,17 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public List<Orders> getAllOrders() {
-		
+
 		List<Orders> list=orderRepository.findAll();
 		list.forEach(x->{
 			x.getOrderDetails().forEach(y->{y.getQuantity();});
 			x.getUserOrdered().getCart().getCartItems().forEach(z->z.getQuantity());
 			x.getAddress().getAdress_Line1();
 		});
-		
-		
+
+
 		return list;
-				
+
 	}
 
 
@@ -94,14 +96,14 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public List<Orders> getMyOrders(Long Id) {
 		Optional<Users> user=userRepository.findById(Id);
-		
+
 		List<Orders> list=orderRepository.findByUserOrdered(user.get());
 		list.forEach(x->{
 			x.getOrderDetails().forEach(y->{y.getQuantity();});
 			x.getUserOrdered().getCart().getCartItems().forEach(z->z.getQuantity());
 			x.getAddress().getAdress_Line1();
 		});
-		
+
 		return list;
 	}
 
@@ -111,10 +113,33 @@ public class OrderServiceImpl implements OrderService {
 	public void deleteOrder(Long orderId) {		
 		orderRepository.deleteById(orderId);	
 	}
-	
-	
-	
-	
-	
+
+
+
+	@Override
+	public void deleteOrders(Long userId) {
+		Users user=userRepository.findById(userId).orElseThrow(()->new ElementNotFoundException("User", "404", "Not Found"));
+		orderRepository.deleteByuserOrdered(user);
+
+	}
+
+
+
+	@Override
+	public void cancelOrder(Long orderId) {
+		Orders order=orderRepository.findById(orderId).orElseThrow(()->new ElementNotFoundException("Order", "404", "Not Found"));
+		if(order.getStatus()!=Status.DELIVERED || order.getStatus()!=Status.CANCELED) {
+			order.getOrderDetails().forEach(x->{
+				x.getProductId().setStock(x.getProductId().getStock()+x.getQuantity());//Product Stock is Updated (Increased)
+			});
+			order.setStatus(Status.CANCELED);
+		}
+	}
+
+	@Override
+	public void updateOrderStatus(Long orderId,String status) {
+		Orders order=orderRepository.findById(orderId).orElseThrow(()->new ElementNotFoundException("Order", "404", "Not Found"));
+		order.setStatus(Status.valueOf(status));
+	}
 
 }

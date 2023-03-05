@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.app.custom_exception.ElementNotFoundException;
+import com.app.custom_exception.OutOfStockException;
 import com.app.dto.CartItemDTO;
 import com.app.dto.CartItemRespDTO;
 import com.app.entities.CartItems;
@@ -49,19 +50,44 @@ public class CartItemsServiceImple implements CartItemsService{
 		Carts cart=repository.findById(cartItem.getUserId()).orElseThrow(()->new ElementNotFoundException("Cart", "404", "Not Found"))
 				.getCart();		
 		
+		if(product.getStock()==0 || cartItem.getQuantity()>product.getStock()) {
+			throw new OutOfStockException(product.getName(), "403", "Out Of Stock");
+		}
+		
+		CartItems sameItem=cartItemsRepository.findByProductIdAndCartId(product, cart);
 		Double cartItemPrice=product.getPrice()*cartItem.getQuantity();
-		CartItems newCartItem=new CartItems(cartItem.getQuantity(),cartItemPrice,cart,product);
+		if(sameItem!=null) {
+			sameItem.setQuantity(sameItem.getQuantity()+cartItem.getQuantity());
+			sameItem.setTotalPrice(sameItem.getTotalPrice()+cartItemPrice);
+			
+			
+			cart.setTotalPrice(cart.getTotalPrice()+cartItemPrice);
+//			product.setStock(product.getStock()-cartItem.getQuantity());//Stock Updated++++++++++++++++++++++++++++++++++
+			cart.setTotalItems(cart.getTotalItems()+cartItem.getQuantity());
+			return sameItem;
+			
+		}else {
+			CartItems newCartItem=new CartItems(cartItem.getQuantity(),cartItemPrice,cart,product);
+			cart.setTotalPrice(cart.getTotalPrice()+cartItemPrice);
+			cart.setCartItems(newCartItem);// Newly Added
+//			product.setStock(product.getStock()-cartItem.getQuantity());//Stock Updated++++++++++++++++++++++++++++++++++
+			cart.setTotalItems(cart.getTotalItems()+cartItem.getQuantity());
+			return cartItemsRepository.save(newCartItem);
+		}
 		
-		cart.setTotalPrice(cart.getTotalPrice()+cartItemPrice);
-		cart.setCartItems(newCartItem);// Newly Added
-		product.setStock(product.getStock()-cartItem.getQuantity());
-		cart.setTotalItems(cart.getTotalItems()+cartItem.getQuantity());
 		
-		return cartItemsRepository.save(newCartItem);
+		
+		
+		
+		
+		
+		
 	}
 
 	@Override
 	public Set<CartItems> getCartItems(Long userId) {
+		
+		
 		Carts cart=repository.findById(userId).orElseThrow(()->new ElementNotFoundException("Cart", "404", "Not Found"))
 				.getCart();	
 		Set<CartItems> tempList=cart.getCartItems();
@@ -80,6 +106,7 @@ public class CartItemsServiceImple implements CartItemsService{
 	@Override  //used in product service impl while deleting a single product
 	public void deleteByProductId(Products product) {
 		List<CartItems> cartItems=cartItemsRepository.findByProductId(product);
+		if(cartItems.size()==0) {throw new ElementNotFoundException(" CartItems", "404", "List is Empty");}
 		cartItems.forEach(x->{
 			Carts cart=x.getCartId();
 			Set<CartItems> items=cart.getCartItems();

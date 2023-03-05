@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.app.custom_exception.EmptyInputException;
+import com.app.custom_exception.OutOfStockException;
 import com.app.custom_exception.ResourceNotFoundException;
 import com.app.custom_exception.ElementAlreadyExistsException;
 import com.app.custom_exception.ElementNotFoundException;
@@ -16,6 +17,11 @@ import com.app.custom_exception.ElementNotFoundException;
 public class MyControllerAdvice extends ResponseEntityExceptionHandler{
 	@ExceptionHandler(ElementAlreadyExistsException.class)
 	public ResponseEntity<String> handleUserAlreadyExistsException(ElementAlreadyExistsException elementException){
+		return new ResponseEntity<String>("Conflict:" + elementException.getElementName() + elementException.getErrorMessage(), HttpStatus.CONFLICT);
+	}
+	
+	@ExceptionHandler(OutOfStockException.class)
+	public ResponseEntity<String> handleOutOfStockException(OutOfStockException elementException){
 		return new ResponseEntity<String>("Conflict:" + elementException.getElementName() + elementException.getErrorMessage(), HttpStatus.CONFLICT);
 	}
 	

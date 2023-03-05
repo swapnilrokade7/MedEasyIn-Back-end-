@@ -99,14 +99,6 @@ public class DeliveryAddress extends BaseEntity{
 	public void setOrderInfo(Orders orderInfo) {
 		this.orderInfo = orderInfo;
 	}
-
-	@Override
-	public String toString() {
-		return "DeliveryAddress [adress_Line1=" + adress_Line1 + ", adress_Line2=" + adress_Line2 + ", city=" + city
-				+ ", state=" + state + ", zip_Code=" + zipCode + ", orderInfo=" + orderInfo + ", getId()=" + getId()
-				+ "]";
-	}
-	
 	
 	
 

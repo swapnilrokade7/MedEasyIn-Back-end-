@@ -73,12 +73,7 @@ public class Orders extends BaseEntity{
 	}
 
 
-	@Override
-	public String toString() {
-		return "Orders [orderDate=" + orderDate + ", deliveryDate=" + deliveryDate + ", status=" + status
-				+ ", totalPrice=" + totalPrice + ", shippingPrice=" + shippingPrice + ", userOrdered=" + userOrdered
-				+ ", orderDetailsSet=" + orderDetailsSet + ", address=" + address + "]";
-	}
+	
 
 
 	public LocalDate getOrderDate() {

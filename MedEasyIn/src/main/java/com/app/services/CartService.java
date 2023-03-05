@@ -14,6 +14,8 @@ public interface CartService {
 
 	void emptyTheCart(Long cartId);
 
-	List<CartItemRespDTO> getMyCart(Long cartId);
+//	List<CartItemRespDTO> getMyCart(Long cartId);
+	
+	Carts getMyCart(Long cartId);
 
 }
