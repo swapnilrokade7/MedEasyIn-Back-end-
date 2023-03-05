@@ -5,12 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.PositiveOrZero;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+@Valid
 @Entity
 @Table(name="orders")
 public class Orders extends BaseEntity{
@@ -29,6 +34,7 @@ public class Orders extends BaseEntity{
 	@PositiveOrZero(message = "Price cant be Negative")
 	private double shippingPrice;
 	@ManyToOne
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "user_id")
 	private Users userOrdered;
 	@OneToMany(mappedBy = "orderId",cascade = CascadeType.ALL, orphanRemoval = true)

@@ -1,5 +1,6 @@
 package com.app.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -8,16 +9,12 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
-import org.hibernate.validator.constraints.Length;
-import org.springframework.format.annotation.NumberFormat;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 @Valid
 @Entity
 @Table(name = "users_tbl")
@@ -38,12 +35,11 @@ public class Users extends BaseEntity{
 	@Enumerated(EnumType.STRING)
 	@Column(name="role" ,length = 15)
 	private Role role;
-	@Column(length=10,unique = true,nullable = false)
-	@Min(10)
-	@Max(10)
-	private Long mobile_number;
+	@Column(length=10,nullable = false)
+	@Pattern(regexp="(^[0-9]{10}$)",message = "Invalid Mobile Number !")
+	private String mobile_number;
 	
-	@OneToOne(mappedBy = "user")
+	@OneToOne(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
 	
 	private Carts cart;
 	/*
@@ -56,7 +52,7 @@ public class Users extends BaseEntity{
 	}
 
 
-	public Users(String firstName, String lastName, String email, String password, Role role, Long mobile_number) {
+	public Users(String firstName, String lastName, String email, String password, Role role, String mobile_number) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -117,12 +113,12 @@ public class Users extends BaseEntity{
 	}
 
 
-	public Long getMobile_number() {
+	public String getMobile_number() {
 		return mobile_number;
 	}
 
 
-	public void setMobile_number(Long mobile_number) {
+	public void setMobile_number(String mobile_number) {
 		this.mobile_number = mobile_number;
 	}
 	

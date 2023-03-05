@@ -10,7 +10,7 @@ import com.app.entities.Products;
 
 public interface CartItemsService {
 
-	CartItemRespDTO addToCart(CartItemDTO cartItem);
+	CartItems addToCart(CartItemDTO cartItem);
 	
 	Set<CartItems> getCartItems(Long CartId);
 	

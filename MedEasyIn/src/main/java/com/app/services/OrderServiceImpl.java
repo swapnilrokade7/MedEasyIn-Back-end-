@@ -51,7 +51,7 @@ public class OrderServiceImpl implements OrderService {
 		DeliveryAddress trueAddress=new DeliveryAddress(address.getAdress_Line1(),address.getAdress_Line2(),address.getCity(),address.getState(),address.getZipCode());
 		DeliveryAddress addedAddress=addressRepository.save(trueAddress);
 		Users user=userRepository.getReferenceById(userId);
-		Orders order=new Orders( LocalDate.now(),LocalDate.now(), Status.PLACED, 0, 40 , user, addedAddress);
+		Orders order=new Orders( LocalDate.now(),LocalDate.of(2024, 12, 12), Status.PLACED, 0, 40 , user, addedAddress);
 		Orders neworder=orderRepository.save(order);
 		addedAddress.setOrderInfo(neworder);
 		Carts cart=user.getCart();

@@ -8,7 +8,7 @@ public class UsersDTO{
 	private String email;
 	private String password;
 	private Role role;
-	private Long mobile_number;
+	private String mobile_number;
 	
 	/*
 	 {"firstName":"Mathuresh","lastName":"Yadav","email":"m@gmail.com","password":"satyajeet","role":"CUSTOMER","mobile_number":"1234567890",}*/
@@ -20,7 +20,7 @@ public class UsersDTO{
 	}
 
 
-	public UsersDTO(String firstName, String lastName, String email, String password, Role role, Long mobile_number) {
+	public UsersDTO(String firstName, String lastName, String email, String password, Role role, String mobile_number) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -81,12 +81,12 @@ public class UsersDTO{
 	}
 
 
-	public Long getMobile_number() {
+	public String getMobile_number() {
 		return mobile_number;
 	}
 
 
-	public void setMobile_number(Long mobile_number) {
+	public void setMobile_number(String mobile_number) {
 		this.mobile_number = mobile_number;
 	}
 	

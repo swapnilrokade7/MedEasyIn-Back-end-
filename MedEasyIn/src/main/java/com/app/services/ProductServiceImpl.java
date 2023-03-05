@@ -48,8 +48,8 @@ public class ProductServiceImpl implements ProductService {
 		
 		Categories result= cat.orElseThrow(()->new ElementNotFoundException("Category", "404", "Not Found"));
 		
-		Products newProduct=new Products(product.getName(),product.getPrice(),product.getDescription(),product.getStock(),result);
-	
+		Products newProduct=new Products(product.getName(),product.getPrice(),product.getDescription(),product.getStock(),result,product.getExpDate());
+		
 		Products prod=productRepository.save(newProduct);
 		return mapper.map(prod, ProductsRespDTO.class); 
 	}

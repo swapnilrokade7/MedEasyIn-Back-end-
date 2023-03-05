@@ -27,10 +27,10 @@ public class Products extends BaseEntity{
 	private Integer stock;
 	@ManyToOne
 	@JoinColumn(name="category_id")
-	@NotBlank(message = "Category Should Not Be Empty")
+//	@NotBlank(message = "Category Should Not Be Empty")
 	private Categories categoryId;
 	@Column(name = "image_path")
-	@NotBlank(message = "imagePath Should Not Be Empty")
+//	@NotBlank(message = "imagePath Should Not Be Empty")
 	private String imagePath;
 	@Column(name = "exp_date")
 	@Future(message = "Date must be in Future")
@@ -47,13 +47,14 @@ public class Products extends BaseEntity{
 	}
 
 
-	public Products(String name, Double price, String description, Integer stock, Categories categoryId) {
+	public Products(String name, Double price, String description, Integer stock, Categories categoryId,LocalDate expDate) {
 		super();
 		this.name = name;
 		this.price = price;
 		this.description = description;
 		this.stock = stock;
 		this.categoryId = categoryId;
+		this.expDate = expDate;
 	}
 
 

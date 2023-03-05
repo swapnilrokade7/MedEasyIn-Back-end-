@@ -1,6 +1,7 @@
 package com.app.entities;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.PositiveOrZero;
 
@@ -9,6 +10,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+@Valid
 @Entity
 @Table(name = "cart_items")
 public class CartItems extends BaseEntity{

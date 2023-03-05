@@ -6,6 +6,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.Valid;
 import javax.validation.constraints.PositiveOrZero;
 
 import org.hibernate.annotations.OnDelete;
@@ -13,6 +14,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+@Valid
 @Entity
 @Table(name="order_details")
 public class OrderDetails extends BaseEntity{

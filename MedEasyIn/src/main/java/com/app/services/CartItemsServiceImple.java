@@ -43,7 +43,7 @@ public class CartItemsServiceImple implements CartItemsService{
 	/*Integer quantity, Double totalPrice, Carts cartId, Products productId) {
 */
 	@Override
-	public CartItemRespDTO addToCart(CartItemDTO cartItem) {
+	public CartItems addToCart(CartItemDTO cartItem) {
 
 		Products product=productRepository.findById(cartItem.getProductId()).orElseThrow(()->new ElementNotFoundException("Product", "404", "Not Found"));
 		Carts cart=repository.findById(cartItem.getUserId()).orElseThrow(()->new ElementNotFoundException("Cart", "404", "Not Found"))
@@ -57,7 +57,7 @@ public class CartItemsServiceImple implements CartItemsService{
 		product.setStock(product.getStock()-cartItem.getQuantity());
 		cart.setTotalItems(cart.getTotalItems()+cartItem.getQuantity());
 		
-		return mapper.map(cartItemsRepository.save(newCartItem), CartItemRespDTO.class); 
+		return cartItemsRepository.save(newCartItem);
 	}
 
 	@Override
@@ -100,8 +100,8 @@ public class CartItemsServiceImple implements CartItemsService{
 		Carts cart=item.getCartId();
 		cart.getCartItems().remove(item);
 		
-		cart.setTotalItems(cart.getTotalItems()-1);
-		cart.setTotalPrice(cart.getTotalItems()-item.getTotalPrice());
+		cart.setTotalItems(cart.getTotalItems()-item.getQuantity());
+		cart.setTotalPrice(cart.getTotalPrice()-item.getTotalPrice());
 		cart.setUpdated(LocalDate.now());
 		cartItemsRepository.deleteById(cartItemId);	
 		

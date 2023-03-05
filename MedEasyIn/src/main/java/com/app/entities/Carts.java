@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -12,10 +13,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.Valid;
 import javax.validation.constraints.PositiveOrZero;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+@Valid
 @Entity
 @Table(name = "carts")
 
@@ -31,7 +34,7 @@ public class Carts extends BaseEntity{
 	@PositiveOrZero(message = "Can't be Negative")
 	private double totalPrice;
 	@ElementCollection
-	@OneToMany(mappedBy ="cartId")
+	@OneToMany(mappedBy ="cartId",cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.EAGER)
 	private Set<CartItems> cartItems=new HashSet<>();
 	
 	@OneToOne

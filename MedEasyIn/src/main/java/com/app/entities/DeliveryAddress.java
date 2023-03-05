@@ -9,6 +9,9 @@ import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -28,8 +31,7 @@ public class DeliveryAddress extends BaseEntity{
 	@NotBlank(message = "State cannot be Blank")
 	private String state;
 	@Column(length = 50,nullable = false)
-	@Min(6)
-	@Max(6)
+	@Size(min=6,max=8)
 	private String zipCode;
 	@OneToOne
 	@JoinColumn(name="order_id")

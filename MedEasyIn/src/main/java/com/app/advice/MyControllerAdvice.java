@@ -16,7 +16,7 @@ import com.app.custom_exception.ElementNotFoundException;
 public class MyControllerAdvice extends ResponseEntityExceptionHandler{
 	@ExceptionHandler(ElementAlreadyExistsException.class)
 	public ResponseEntity<String> handleUserAlreadyExistsException(ElementAlreadyExistsException elementException){
-		return new ResponseEntity<String>("Conflict:" + elementException.getElementName() + " already exists", HttpStatus.CONFLICT);
+		return new ResponseEntity<String>("Conflict:" + elementException.getElementName() + elementException.getErrorMessage(), HttpStatus.CONFLICT);
 	}
 	
 	@ExceptionHandler(ResourceNotFoundException.class)
