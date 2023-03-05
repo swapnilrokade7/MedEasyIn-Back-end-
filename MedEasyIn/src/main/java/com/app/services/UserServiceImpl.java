@@ -1,5 +1,7 @@
 package com.app.services;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
@@ -66,6 +68,11 @@ public class UserServiceImpl implements UserService{
 		}
 		BeanUtils.copyProperties(user, oldUser);
 		return oldUser;
+	}
+
+	@Override
+	public List<Users> getAllUsers() {
+		return userRepo.findAll();
 	}
 	
 

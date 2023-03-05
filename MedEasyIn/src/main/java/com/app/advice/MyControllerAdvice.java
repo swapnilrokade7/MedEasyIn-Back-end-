@@ -22,7 +22,7 @@ public class MyControllerAdvice extends ResponseEntityExceptionHandler{
 	
 	@ExceptionHandler(OutOfStockException.class)
 	public ResponseEntity<String> handleOutOfStockException(OutOfStockException elementException){
-		return new ResponseEntity<String>("Conflict:" + elementException.getElementName() + elementException.getErrorMessage(), HttpStatus.CONFLICT);
+		return new ResponseEntity<String>("Conflict:" + elementException.getElementName()+" " + elementException.getErrorMessage(), HttpStatus.CONFLICT);
 	}
 	
 	@ExceptionHandler(ResourceNotFoundException.class)

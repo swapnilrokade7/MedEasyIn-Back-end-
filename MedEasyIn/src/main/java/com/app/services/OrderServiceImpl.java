@@ -64,7 +64,7 @@ public class OrderServiceImpl implements OrderService {
 			OrderDetails oDetails = new OrderDetails(x.getQuantity() , x.getTotalPrice(),neworder,x.getProductId());
 			Products product=x.getProductId();
 			if(product.getStock()==0 || x.getQuantity()>product.getStock()) {
-				throw new OutOfStockException(product.getName(), "403", "Out Of Stock");
+				throw new OutOfStockException("Product "+product.getName(), "403", "Out Of Stock");
 			}
 			product.setStock(product.getStock()-x.getQuantity());//Product Stock is Updated (Decreased)
 			neworder.setOrderDetails(detailsRepository.save(oDetails));

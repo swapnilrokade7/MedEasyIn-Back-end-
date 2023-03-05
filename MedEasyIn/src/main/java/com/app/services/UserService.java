@@ -1,5 +1,7 @@
 package com.app.services;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import com.app.dto.UsersDTO;
@@ -11,6 +13,8 @@ public interface UserService {
 	String deleteUserDetails(Long userId);
 
 	Users updateUserDetails(@Valid UsersDTO user);
+
+	List<Users> getAllUsers();
 	
 
 }
