@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.app.custom_exception.ElementNotFoundException;
+import com.app.custom_exception.OutOfStockException;
 import com.app.dto.DeliveryAddressDTO;
 import com.app.dto.OrdersRespDTO;
 import com.app.entities.CartItems;
@@ -19,6 +20,7 @@ import com.app.entities.Carts;
 import com.app.entities.DeliveryAddress;
 import com.app.entities.OrderDetails;
 import com.app.entities.Orders;
+import com.app.entities.Products;
 import com.app.entities.Status;
 import com.app.entities.Users;
 import com.app.repository.AddressRepository;
@@ -60,7 +62,11 @@ public class OrderServiceImpl implements OrderService {
 		Set<CartItems> cartItems=user.getCart().getCartItems();
 		cartItems.forEach(x->{
 			OrderDetails oDetails = new OrderDetails(x.getQuantity() , x.getTotalPrice(),neworder,x.getProductId());
-			x.getProductId().setStock(x.getProductId().getStock()-x.getQuantity());//Product Stock is Updated (Decreased)
+			Products product=x.getProductId();
+			if(product.getStock()==0 || x.getQuantity()>product.getStock()) {
+				throw new OutOfStockException(product.getName(), "403", "Out Of Stock");
+			}
+			product.setStock(product.getStock()-x.getQuantity());//Product Stock is Updated (Decreased)
 			neworder.setOrderDetails(detailsRepository.save(oDetails));
 
 		});

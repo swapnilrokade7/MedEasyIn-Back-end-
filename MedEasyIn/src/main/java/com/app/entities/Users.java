@@ -15,9 +15,12 @@ import javax.validation.constraints.Pattern;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
+import lombok.ToString;
+
 @Valid
 @Entity
 @Table(name = "users_tbl")
+//@ToString(exclude = "password")
 public class Users extends BaseEntity{
 	@Column(name="first_name" ,length = 25)
 	@NotBlank(message = "Fist Name should Not be Blank")
