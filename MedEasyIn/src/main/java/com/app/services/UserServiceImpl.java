@@ -11,8 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.app.customException.ElementAlreadyExistsException;
 import com.app.customException.ElementNotFoundException;
+import com.app.customException.UserAlreadyExistsException;
 import com.app.dto.UsersDTO;
 import com.app.dto.UsersRespDTO;
 import com.app.entities.Carts;
@@ -40,13 +40,13 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	public UsersRespDTO addUserDetails(UsersDTO user) {
-		Users trueUser = new Users(user.getFirstName(), user.getLastName(), user.getEmail(), enc.encode(user.getPassword()), user.getRole(), user.getMobile_number()); 
+		Users trueUser = new Users(user.getFirstName(), user.getLastName(), user.getEmail(), enc.encode(user.getPassword()), user.getRole(), user.getMobileNumber()); 
 		Optional<Users> checkUser=userRepo.findByEmail(user.getEmail());
 		
 		System.out.println("++++++++++++++++++++++++++++++++++"+checkUser);
 		
 		if(checkUser.isPresent()==true) {
-			throw new ElementAlreadyExistsException("User ", "403", "User ALready Exist");
+			throw new UserAlreadyExistsException("User Email already exists!!!!!");
 		}
 		
 		Users addeduser =userRepo.save(trueUser);

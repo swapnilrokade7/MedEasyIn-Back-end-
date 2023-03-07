@@ -36,16 +36,16 @@ public class Users extends BaseEntity{
 	private String password;
 	@Enumerated(EnumType.STRING)
 	@Column(name="role" ,length = 15)
-	private Role role;
+	private Role role; 
 	@Column(length=10,nullable = false)
 	@Pattern(regexp="(^[0-9]{10}$)",message = "Invalid Mobile Number !")
-	private String mobile_number;
+	private String mobileNumber;
 	
 	@OneToOne(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
 	@JsonIgnore
 	private Carts cart;
 	/*
-	 {"firstName":"Mathuresh","lastName":"Yadav","email":"m@gmail.com","password":"satyajeet","role":"CUSTOMER","mobile_number":"1234567890",}*/
+	 {"firstName":"Mathuresh","lastName":"Yadav","email":"m@gmail.com","password":"satyajeet","role":"CUSTOMER","mobileNumber":"1234567890",}*/
 //	@OneToMany if time permits
 //	List<DeliveryAddress> addresses = new ArrayList<DeliveryAddress>();
 	public Users() {
@@ -54,14 +54,14 @@ public class Users extends BaseEntity{
 	}
 
 
-	public Users(String firstName, String lastName, String email, String password, Role role, String mobile_number) {
+	public Users(String firstName, String lastName, String email, String password, Role role, String mobileNumber) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
 		this.role = role;
-		this.mobile_number = mobile_number;
+		this.mobileNumber = mobileNumber;
 	}
 
 
@@ -115,13 +115,13 @@ public class Users extends BaseEntity{
 	}
 
 
-	public String getMobile_number() {
-		return mobile_number;
+	public String getmobileNumber() {
+		return mobileNumber;
 	}
 
 
-	public void setMobile_number(String mobile_number) {
-		this.mobile_number = mobile_number;
+	public void setmobileNumber(String mobileNumber) {
+		this.mobileNumber = mobileNumber;
 	}
 	
 	
@@ -139,7 +139,7 @@ public class Users extends BaseEntity{
 	@Override
 	public String toString() {
 		return "Users [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", password="
-				+ password + ", role=" + role + ", mobile_number=" + mobile_number + ", getId()=" + getId() + "]";
+				+ password + ", role=" + role + ", mobileNumber=" + mobileNumber + ", getId()=" + getId() + "]";
 	}
 	
 	

@@ -8,10 +8,10 @@ public class UsersRespDTO{
 	private String email;
 	
 	private Role role;
-	private String mobile_number;
+	private String mobileNumber;
 	
 	/*
-	 {"firstName":"Mathuresh","lastName":"Yadav","email":"m@gmail.com","password":"satyajeet","role":"CUSTOMER","mobile_number":"1234567890",}*/
+	 {"firstName":"Mathuresh","lastName":"Yadav","email":"m@gmail.com","password":"satyajeet","role":"CUSTOMER","mobileNumber":"1234567890",}*/
 	
 	
 	public UsersRespDTO() {
@@ -20,13 +20,13 @@ public class UsersRespDTO{
 	}
 
 
-	public UsersRespDTO(String firstName, String lastName, String email, Role role, String mobile_number) {
+	public UsersRespDTO(String firstName, String lastName, String email, Role role, String mobileNumber) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.role = role;
-		this.mobile_number = mobile_number;
+		this.mobileNumber = mobileNumber;
 	}
 
 
@@ -70,13 +70,13 @@ public class UsersRespDTO{
 	}
 
 
-	public String getMobile_number() {
-		return mobile_number;
+	public String getmobileNumber() {
+		return mobileNumber;
 	}
 
 
-	public void setMobile_number(String mobile_number) {
-		this.mobile_number = mobile_number;
+	public void setmobileNumber(String mobileNumber) {
+		this.mobileNumber = mobileNumber;
 	}
 	
 
