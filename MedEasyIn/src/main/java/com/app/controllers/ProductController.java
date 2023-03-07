@@ -66,7 +66,7 @@ public class ProductController
     
     
     
-    @GetMapping(value = "/Category/{categoryId}")
+    @GetMapping(value = "/category/{categoryId}")
  	public ResponseEntity<List<ProductsProjection>> getProductsByCategory1(@PathVariable Long categoryId){
  		
  		return new ResponseEntity<List<ProductsProjection>>(productService.getProductsByCategory(categoryId) , HttpStatus.CREATED);

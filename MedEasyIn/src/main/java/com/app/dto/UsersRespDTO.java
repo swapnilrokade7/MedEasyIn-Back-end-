@@ -3,6 +3,7 @@ package com.app.dto;
 import com.app.entities.Role;
 
 public class UsersRespDTO{
+//	private Long Id;
 	private String firstName;
 	private String lastName;
 	private String email;
@@ -20,12 +21,33 @@ public class UsersRespDTO{
 	}
 
 
-	public UsersRespDTO(String firstName, String lastName, String email, Role role, String mobileNumber) {
+	public UsersRespDTO( String firstName, String lastName, String email, Role role, String mobileNumber) {
 		super();
+//		this.Id=Id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.role = role;
+		this.mobileNumber = mobileNumber;
+	}
+
+
+//	public Long getId() {
+//		return Id;
+//	}
+//
+//
+//	public void setId(Long id) {
+//		Id = id;
+//	}
+
+
+	public String getMobileNumber() {
+		return mobileNumber;
+	}
+
+
+	public void setMobileNumber(String mobileNumber) {
 		this.mobileNumber = mobileNumber;
 	}
 
@@ -68,16 +90,5 @@ public class UsersRespDTO{
 	public void setRole(Role role) {
 		this.role = role;
 	}
-
-
-	public String getmobileNumber() {
-		return mobileNumber;
-	}
-
-
-	public void setmobileNumber(String mobileNumber) {
-		this.mobileNumber = mobileNumber;
-	}
-	
 
 }

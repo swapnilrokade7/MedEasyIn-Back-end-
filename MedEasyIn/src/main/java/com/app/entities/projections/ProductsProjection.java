@@ -3,6 +3,7 @@ package com.app.entities.projections;
 import java.time.LocalDate;
 
 public class ProductsProjection {
+	private Long Id;
 	private String name;
 	private Double price;
 	private String description;
@@ -20,9 +21,10 @@ public class ProductsProjection {
 	}
 
 
-	public ProductsProjection(String name, Double price, String description, Integer stock, String categoryName,
+	public ProductsProjection(Long Id, String name, Double price, String description, Integer stock, String categoryName,
 			String imagePath, LocalDate expDate) {
 		super();
+		this.Id=Id;
 		this.name = name;
 		this.price = price;
 		this.description = description;
@@ -30,6 +32,16 @@ public class ProductsProjection {
 		this.categoryName = categoryName;
 		this.imagePath = imagePath;
 		this.expDate=expDate;
+	}
+
+
+	public Long getId() {
+		return Id;
+	}
+
+
+	public void setId(Long id) {
+		Id = id;
 	}
 
 

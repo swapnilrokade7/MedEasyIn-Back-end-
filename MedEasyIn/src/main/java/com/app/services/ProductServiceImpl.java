@@ -60,7 +60,7 @@ public class ProductServiceImpl implements ProductService {
 		Categories result= cat.orElseThrow(()->new ElementNotFoundException("Category", "404", "Not Found"));
 		 Set<Products> tempList=result.getProductList();
 		 List<ProductsProjection> productList=new ArrayList<ProductsProjection>();
-		 tempList.forEach(x->productList.add(new ProductsProjection(x.getName(), x.getPrice(), x.getDescription(), x.getStock(), x.getCategoryId().getCategoryName(), x.getImagePath(), x.getExpDate())));
+		 tempList.forEach(x->productList.add(new ProductsProjection(x.getId(),x.getName(), x.getPrice(), x.getDescription(), x.getStock(), x.getCategoryId().getCategoryName(), x.getImagePath(), x.getExpDate())));
 		return productList;
 	}
 
@@ -81,7 +81,7 @@ public class ProductServiceImpl implements ProductService {
 		}
 		List<ProductsProjection> list=new ArrayList<ProductsProjection>();
 		tempList.forEach(x->{
-			list.add(new ProductsProjection(x.getName(), x.getPrice(), x.getDescription(), x.getStock(), x.getCategoryId().getCategoryName(), x.getImagePath(), x.getExpDate()));
+			list.add(new ProductsProjection(x.getId(),x.getName(), x.getPrice(), x.getDescription(), x.getStock(), x.getCategoryId().getCategoryName(), x.getImagePath(), x.getExpDate()));
 		});
 		return list;
 	}

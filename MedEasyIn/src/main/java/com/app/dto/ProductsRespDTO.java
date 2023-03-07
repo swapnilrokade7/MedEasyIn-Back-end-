@@ -7,7 +7,6 @@ public class ProductsRespDTO {
 	private Double price;
 	private String description;
 	private Integer stock;
-	private String imagePath;
 	private LocalDate expDate;
 
 	/*{"name":"Crocine","price":"12.0","description":"Fever Tablet","stock":"500","categoryId":"1","imagePath":"images/kiara.jpg"}*/
