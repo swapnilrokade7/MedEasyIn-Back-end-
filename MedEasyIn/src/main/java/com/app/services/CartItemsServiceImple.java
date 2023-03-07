@@ -10,10 +10,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.app.custom_exception.ElementNotFoundException;
-import com.app.custom_exception.OutOfStockException;
+import com.app.customException.ElementNotFoundException;
+import com.app.customException.OutOfStockException;
 import com.app.dto.CartItemDTO;
-import com.app.dto.CartItemRespDTO;
 import com.app.entities.CartItems;
 import com.app.entities.Carts;
 import com.app.entities.Products;

@@ -1,7 +1,6 @@
 package com.app.services;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -11,8 +10,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.app.custom_exception.ElementNotFoundException;
-import com.app.custom_exception.OutOfStockException;
+import com.app.customException.ElementNotFoundException;
+import com.app.customException.OutOfStockException;
 import com.app.dto.DeliveryAddressDTO;
 import com.app.dto.OrdersRespDTO;
 import com.app.entities.CartItems;

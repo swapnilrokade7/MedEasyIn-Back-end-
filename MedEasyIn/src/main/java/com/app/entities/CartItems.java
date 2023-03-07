@@ -1,8 +1,12 @@
 package com.app.entities;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.Valid;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.PositiveOrZero;
 
 import org.hibernate.annotations.OnDelete;

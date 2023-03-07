@@ -1,11 +1,7 @@
-package com.app.custom_exception;
-
-import org.springframework.stereotype.Component;
+package com.app.customException;
 
 @SuppressWarnings("serial")
-@Component
-public class ElementAlreadyExistsException extends RuntimeException {
-	
+public class ElementNotFoundException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 	private String elementName;
 	private String errorCode;
@@ -43,14 +39,14 @@ public class ElementAlreadyExistsException extends RuntimeException {
 		this.elementName = elementName;
 	}
 
-	public ElementAlreadyExistsException(String name, String errorCode, String errorMessage) {
+	public ElementNotFoundException(String name, String errorCode, String errorMessage) {
 		super();
 		this.elementName=name;
 		this.errorCode = errorCode;
 		this.errorMessage = errorMessage;
 	}
 
-	public ElementAlreadyExistsException() {
+	public ElementNotFoundException() {
 		super();
 	}
 	

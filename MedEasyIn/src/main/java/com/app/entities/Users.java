@@ -16,8 +16,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
-import lombok.ToString;
-
 @Valid
 @Entity
 @Table(name = "users_tbl")
@@ -33,8 +31,8 @@ public class Users extends BaseEntity{
 	@Email(message = "Email should be Proper")
 	private String email;
 	@JsonProperty(access = Access.WRITE_ONLY)
-	@Column(name="password" ,length = 25,nullable = false)
-	@Pattern(regexp ="((?=.*\\d)(?=.*[a-z])(?=.*[#@$*]).{5,20})",message = "Invalid Password !")
+	@Column(name="password" ,length = 300, nullable = false)
+//	@Pattern(regexp ="((?=.*\\d)(?=.*[a-z])(?=.*[#@$*]).{5,20})",message = "Invalid Password !")
 	private String password;
 	@Enumerated(EnumType.STRING)
 	@Column(name="role" ,length = 15)

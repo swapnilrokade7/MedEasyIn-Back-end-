@@ -12,9 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.dto.CartItemDTO;
-import com.app.entities.CartItems;
-import com.app.entities.Carts;
-import com.app.repository.CartItemsRepository;
 import com.app.services.CartItemsService;
 
 @RestController

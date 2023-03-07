@@ -3,21 +3,16 @@ package com.app.services;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.app.custom_exception.ElementNotFoundException;
+import com.app.customException.ElementNotFoundException;
 import com.app.dto.CartItemRespDTO;
-import com.app.entities.CartItems;
 import com.app.entities.Carts;
-import com.app.entities.Products;
 import com.app.entities.Users;
-import com.app.repository.CartItemsRepository;
 import com.app.repository.CartRepository;
 import com.app.repository.UserRepository;
 

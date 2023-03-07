@@ -1,4 +1,4 @@
-package com.app.exception_handler;
+package com.app.exceptionHandler;
 
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
-import com.app.custom_exception.UserAlreadyExistsException;
+import com.app.customException.UserAlreadyExistsException;
 import com.app.dto.ApiResponse;
 
 @RestControllerAdvice // MANDATORY annotation to tell SC , following is the global exc handler class

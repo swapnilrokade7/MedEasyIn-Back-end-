@@ -4,8 +4,6 @@ import java.util.List;
 
 import com.app.dto.ProductsDTO;
 import com.app.dto.ProductsRespDTO;
-import com.app.entities.Categories;
-import com.app.entities.Products;
 import com.app.entities.projections.ProductsProjection;
 
 public interface ProductService {

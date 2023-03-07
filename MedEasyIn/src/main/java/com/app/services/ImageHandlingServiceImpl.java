@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.app.custom_exception.ResourceNotFoundException;
+import com.app.customException.ResourceNotFoundException;
 import com.app.entities.Products;
 import com.app.repository.ProductRepository;
 

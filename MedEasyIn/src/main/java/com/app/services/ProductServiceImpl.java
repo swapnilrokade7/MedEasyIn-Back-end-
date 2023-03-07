@@ -11,7 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.app.custom_exception.ElementNotFoundException;
+import com.app.customException.ElementNotFoundException;
 import com.app.dto.ProductsDTO;
 import com.app.dto.ProductsRespDTO;
 import com.app.entities.Categories;

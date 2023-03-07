@@ -1,43 +1,57 @@
-package com.app.custom_exception;
+package com.app.customException;
 
 import org.springframework.stereotype.Component;
 
+@SuppressWarnings("serial")
 @Component
-public class EmptyInputException extends RuntimeException{
+public class OutOfStockException extends RuntimeException {
 	
 	private static final long serialVersionUID = 1L;
+	private String elementName;
 	private String errorCode;
 	private String errorMessage;
 	
+//	public UserAlreadyExistsException(String mesg) {
+//		super(mesg);
+//	}
+
 	public String getErrorCode() {
 		return errorCode;
 	}
-	
+
 	public void setErrorCode(String errorCode) {
 		this.errorCode = errorCode;
 	}
-	
+
 	public String getErrorMessage() {
 		return errorMessage;
 	}
-	
+
 	public void setErrorMessage(String errorMessage) {
 		this.errorMessage = errorMessage;
 	}
-	
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
-	public EmptyInputException(String errorCode, String errorMessage) {
+
+	public String getElementName() {
+		return elementName;
+	}
+
+	public void setElementName(String elementName) {
+		this.elementName = elementName;
+	}
+
+	public OutOfStockException(String name, String errorCode, String errorMessage) {
 		super();
+		this.elementName=name;
 		this.errorCode = errorCode;
 		this.errorMessage = errorMessage;
 	}
 
-	public EmptyInputException() {
-		
+	public OutOfStockException() {
+		super();
 	}
-	
 	
 }

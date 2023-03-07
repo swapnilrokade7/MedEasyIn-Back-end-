@@ -1,8 +1,5 @@
 package com.app.dto;
 
-import javax.persistence.*;
-
-
 public class DeliveryAddressDTO{
 	private String adress_Line1;
 	private String adress_Line2;

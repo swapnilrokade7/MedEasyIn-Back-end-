@@ -1,10 +1,10 @@
-package com.app.custom_exception;
+package com.app.customException;
 
 import org.springframework.stereotype.Component;
 
 @SuppressWarnings("serial")
 @Component
-public class OutOfStockException extends RuntimeException {
+public class ElementAlreadyExistsException extends RuntimeException {
 	
 	private static final long serialVersionUID = 1L;
 	private String elementName;
@@ -43,14 +43,14 @@ public class OutOfStockException extends RuntimeException {
 		this.elementName = elementName;
 	}
 
-	public OutOfStockException(String name, String errorCode, String errorMessage) {
+	public ElementAlreadyExistsException(String name, String errorCode, String errorMessage) {
 		super();
 		this.elementName=name;
 		this.errorCode = errorCode;
 		this.errorMessage = errorMessage;
 	}
 
-	public OutOfStockException() {
+	public ElementAlreadyExistsException() {
 		super();
 	}
 	

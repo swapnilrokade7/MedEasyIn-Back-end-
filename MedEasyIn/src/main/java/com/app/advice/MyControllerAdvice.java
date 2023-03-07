@@ -4,14 +4,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import com.app.custom_exception.EmptyInputException;
-import com.app.custom_exception.OutOfStockException;
-import com.app.custom_exception.ResourceNotFoundException;
-import com.app.custom_exception.ElementAlreadyExistsException;
-import com.app.custom_exception.ElementNotFoundException;
+import com.app.customException.ElementAlreadyExistsException;
+import com.app.customException.ElementNotFoundException;
+import com.app.customException.EmptyInputException;
+import com.app.customException.OutOfStockException;
+import com.app.customException.ResourceNotFoundException;
 
 @ControllerAdvice
 public class MyControllerAdvice extends ResponseEntityExceptionHandler{

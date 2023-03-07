@@ -5,10 +5,11 @@ import java.util.List;
 import javax.validation.Valid;
 
 import com.app.dto.UsersDTO;
+import com.app.dto.UsersRespDTO;
 import com.app.entities.Users;
 
 public interface UserService {
-	UsersDTO addUserDetails(UsersDTO user);
+	UsersRespDTO addUserDetails(UsersDTO user);
 
 	String deleteUserDetails(Long userId);
 

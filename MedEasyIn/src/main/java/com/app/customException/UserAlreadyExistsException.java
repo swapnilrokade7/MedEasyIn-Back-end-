@@ -1,4 +1,4 @@
-package com.app.custom_exception;
+package com.app.customException;
 
 @SuppressWarnings("serial")
 public class UserAlreadyExistsException extends RuntimeException {

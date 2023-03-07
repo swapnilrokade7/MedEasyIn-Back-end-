@@ -26,7 +26,7 @@ public class OrderController {
 
 	
 	
-	@PostMapping("/{userId}")
+	@PostMapping("/user/{userId}")
 	public ResponseEntity<?> placeOrder(@PathVariable Long userId ,@RequestBody DeliveryAddressDTO address )
 	{	
 		
@@ -35,21 +35,21 @@ public class OrderController {
 	} 
 	
 	
-	@GetMapping
+	@GetMapping("/admin")
 	public ResponseEntity<?> getAllOrders()
 	{	
 		
 		return new ResponseEntity<>( orderService.getAllOrders(),HttpStatus.CREATED);
 	} 
 	
-	@GetMapping("/{custId}")
+	@GetMapping("/user/{custId}")
 	public ResponseEntity<?> getMyOrders(@PathVariable Long custId)
 	{	
 		
 		return new ResponseEntity<>( orderService.getMyOrders(custId),HttpStatus.CREATED);
 	} 
 	
-	@PutMapping("cancel/{orderId}")//User
+	@PutMapping("/user/cancel/{orderId}")//User
 	public ResponseEntity<String> cancelOrder(@PathVariable Long orderId)
 	{	
 		
