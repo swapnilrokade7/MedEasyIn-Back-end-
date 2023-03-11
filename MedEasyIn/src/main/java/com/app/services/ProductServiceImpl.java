@@ -101,6 +101,13 @@ public class ProductServiceImpl implements ProductService {
 		
 	}
 
+	@Override
+	public Products getProductById(Long productId) {
+		Products retProduct=productRepository.findById(productId)
+				.orElseThrow(()->new ElementNotFoundException("Product", "404", "Not Found"));
+		return retProduct;
+	}
+
 
 
 	

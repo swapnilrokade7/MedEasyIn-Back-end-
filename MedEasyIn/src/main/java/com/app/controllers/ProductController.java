@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.app.dto.ProductsDTO;
+import com.app.entities.Products;
 import com.app.entities.projections.ProductsProjection;
 import com.app.services.ImageHandlingService;
 import com.app.services.ProductService;
@@ -62,10 +63,6 @@ public class ProductController
         return new ResponseEntity<>("Product Updated", HttpStatus.CREATED);
     }
     
-    
-    
-    
-    
     @GetMapping(value = "/category/{categoryId}")
  	public ResponseEntity<List<ProductsProjection>> getProductsByCategory1(@PathVariable Long categoryId){
  		
@@ -89,10 +86,17 @@ public class ProductController
 //    }
     
     
+    @GetMapping("/{productId}")
+    public Products getProductById(@PathVariable Long productId) {
+    	
+		return productService.getProductById(productId);
+    }
+    
+    
     
  // Add REST end point to upload image
  	// URL : http://host:port/products/{productId}/image , Method=POST
- 	@PostMapping(value="/{productId}/image",consumes = "multipart/form-data")
+ 	@PostMapping(value="/{productId}/image")
  	public ResponseEntity<?> uploadImageToServerSideFolder(@RequestParam MultipartFile imageFile,
  			@PathVariable Long productId
  			) throws IOException {

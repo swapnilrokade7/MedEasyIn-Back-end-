@@ -5,7 +5,16 @@ public class CartItemRespDTO {
 	private Double totalPrice;
 	private Long cartId;
 	private Long productId;
+	private String productName;
 	
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+
 	public CartItemRespDTO() {
 		
 	}
@@ -32,12 +41,13 @@ public class CartItemRespDTO {
 		this.productId = productId;
 	}
 
-	public CartItemRespDTO(Integer quantity, Double totalPrice, Long cartId, Long productId) {
+	public CartItemRespDTO(Integer quantity, Double totalPrice, Long cartId, Long productId, String productName) {
 		super();
 		this.quantity = quantity;
 		this.totalPrice = totalPrice;
 		this.cartId = cartId;
 		this.productId = productId;
+		this.productName=productName;
 	}
 
 	public Integer getQuantity() {

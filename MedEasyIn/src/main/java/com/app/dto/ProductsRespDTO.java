@@ -3,6 +3,7 @@ package com.app.dto;
 import java.time.LocalDate;
 
 public class ProductsRespDTO {
+	private Long id;
 	private String name;
 	private Double price;
 	private String description;
@@ -21,13 +22,24 @@ public class ProductsRespDTO {
 	}
 
 
-	public ProductsRespDTO(String name, Double price, String description, Integer stock, LocalDate expDate) {
+	public ProductsRespDTO(Long id, String name, Double price, String description, Integer stock, LocalDate expDate) {
 		super();
+		this.id=id;
 		this.name = name;
 		this.price = price;
 		this.description = description;
 		this.stock = stock;
 		this.expDate=expDate;
+	}
+
+
+	public Long getId() {
+		return id;
+	}
+
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 

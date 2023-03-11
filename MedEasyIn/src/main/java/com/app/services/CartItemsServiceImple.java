@@ -61,7 +61,6 @@ public class CartItemsServiceImple implements CartItemsService{
 			
 			
 			cart.setTotalPrice(cart.getTotalPrice()+cartItemPrice);
-//			product.setStock(product.getStock()-cartItem.getQuantity());//Stock Updated++++++++++++++++++++++++++++++++++
 			cart.setTotalItems(cart.getTotalItems()+cartItem.getQuantity());
 			return sameItem;
 			
@@ -69,18 +68,9 @@ public class CartItemsServiceImple implements CartItemsService{
 			CartItems newCartItem=new CartItems(cartItem.getQuantity(),cartItemPrice,cart,product);
 			cart.setTotalPrice(cart.getTotalPrice()+cartItemPrice);
 			cart.setCartItems(newCartItem);// Newly Added
-//			product.setStock(product.getStock()-cartItem.getQuantity());//Stock Updated++++++++++++++++++++++++++++++++++
 			cart.setTotalItems(cart.getTotalItems()+cartItem.getQuantity());
 			return cartItemsRepository.save(newCartItem);
 		}
-		
-		
-		
-		
-		
-		
-		
-		
 	}
 
 	@Override
@@ -119,7 +109,7 @@ public class CartItemsServiceImple implements CartItemsService{
 		
 	}
 
-	@Override
+	@Override //used for deleting cart item from cart
 	public void deleteItem(Long cartItemId) {
 		CartItems item=cartItemsRepository.findById(cartItemId)
 				.orElseThrow(()->new ElementNotFoundException("Item", "404", "Not Found"));
@@ -130,6 +120,14 @@ public class CartItemsServiceImple implements CartItemsService{
 		cart.setTotalPrice(cart.getTotalPrice()-item.getTotalPrice());
 		cart.setUpdated(LocalDate.now());
 		cartItemsRepository.deleteById(cartItemId);	
+		
+	}
+
+	@Override
+	public void updateItem(Long cartItemId) {
+		CartItems item=cartItemsRepository.findById(cartItemId)
+				.orElseThrow(()->new ElementNotFoundException("Item", "404", "Not Found"));
+		item.setQuantity(item.getQuantity()-1);
 		
 	}
 	

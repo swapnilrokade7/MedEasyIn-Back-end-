@@ -1,5 +1,8 @@
 package com.app.services;
 
+import java.util.List;
+
+import com.app.dto.CartItemRespDTO;
 import com.app.entities.Carts;
 import com.app.entities.Users;
 
@@ -9,8 +12,8 @@ public interface CartService {
 
 	void emptyTheCart(Long cartId);
 
-//	List<CartItemRespDTO> getMyCart(Long cartId);
-	
 	Carts getMyCart(Long cartId);
+	
+	List<CartItemRespDTO> getMyCartItems(Long cartId);
 
 }
