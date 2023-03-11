@@ -128,6 +128,7 @@ public class CartItemsServiceImple implements CartItemsService{
 		CartItems item=cartItemsRepository.findById(cartItemId)
 				.orElseThrow(()->new ElementNotFoundException("Item", "404", "Not Found"));
 		item.setQuantity(item.getQuantity()-1);
+		item.getCartId().setTotalItems(item.getCartId().getTotalItems()-1);
 		
 	}
 	

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.app.customException.ElementNotFoundException;
+import com.app.dto.ProductUpdateDTO;
 import com.app.dto.ProductsDTO;
 import com.app.dto.ProductsRespDTO;
 import com.app.entities.Categories;
@@ -87,13 +88,15 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public void updateProduct(ProductsDTO product, Long productId) {
+	public void updateProduct(ProductUpdateDTO product, Long productId) {
 		Products retProduct=productRepository.findById(productId)
 				.orElseThrow(()->new ElementNotFoundException("Product", "404", "Not Found"));
 		retProduct.setName(product.getName());
 		retProduct.setDescription(product.getDescription());
 		retProduct.setStock(product.getStock());
 		retProduct.setPrice(product.getPrice());
+		retProduct.setExpDate(product.getExpDate());
+		System.out.println("In Update ##########################################################");
 //		Categories cat=categoryRepository.getReferenceById(product.getCategoryId());
 //		retProduct.get().setCategoryId(cat);
 		

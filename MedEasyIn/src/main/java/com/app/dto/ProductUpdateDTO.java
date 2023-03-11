@@ -2,26 +2,24 @@ package com.app.dto;
 
 import java.time.LocalDate;
 
-public class ProductsDTO {
+public class ProductUpdateDTO {
 	private String name;
 	private Double price;
 	private String description;
 	private Integer stock;
-	private Long categoryId;
 	private LocalDate expDate;
 
 	
 	/*{"name":"Crocine","price":"12.0","description":"Fever Tablet","stock":"500","categoryId":"1","imagePath":"images/kiara.jpg"}*/
 	
 	
-	public ProductsDTO() {
+	public ProductUpdateDTO() {
 		super();
 		System.out.println("in ctor "+getClass().getName());
 	}
 
 
-	public ProductsDTO(String name, Double price, String description, Integer stock, Long categoryId,
-			LocalDate expDate) {
+	public ProductUpdateDTO(String name, Double price, String description, Integer stock, LocalDate expDate) {
 		super();
 		System.out.println("In Update Ctor1 #########################################################");
 
@@ -29,22 +27,8 @@ public class ProductsDTO {
 		this.price = price;
 		this.description = description;
 		this.stock = stock;
-		this.categoryId = categoryId;
 		this.expDate = expDate;
 	}
-	
-//	public ProductsDTO(String name, Double price, String description, Integer stock,
-//			LocalDate expDate) {
-//		super();
-//		System.out.println("In Update Ctor2 #########################################################");
-//		
-//		this.name = name;
-//		this.price = price;
-//		this.description = description;
-//		this.stock = stock;
-//		this.expDate = expDate;
-//	}
-	
 
 
 	public String getName() {
@@ -84,16 +68,6 @@ public class ProductsDTO {
 
 	public void setStock(Integer stock) {
 		this.stock = stock;
-	}
-
-
-	public Long getCategoryId() {
-		return categoryId;
-	}
-
-
-	public void setCategoryId(Long categoryId) {
-		this.categoryId = categoryId;
 	}
 
 

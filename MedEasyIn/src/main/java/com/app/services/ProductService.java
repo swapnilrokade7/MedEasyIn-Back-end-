@@ -2,6 +2,7 @@ package com.app.services;
 
 import java.util.List;
 
+import com.app.dto.ProductUpdateDTO;
 import com.app.dto.ProductsDTO;
 import com.app.dto.ProductsRespDTO;
 import com.app.entities.Products;
@@ -17,7 +18,7 @@ public interface ProductService {
 
 	List<ProductsProjection> findAllProducts();
 
-	void updateProduct(ProductsDTO product, Long productId);
+	void updateProduct(ProductUpdateDTO product, Long productId);
 	
 	
 	Products getProductById(Long productId);

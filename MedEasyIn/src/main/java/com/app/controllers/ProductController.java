@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.app.dto.ProductUpdateDTO;
 import com.app.dto.ProductsDTO;
 import com.app.entities.Products;
 import com.app.entities.projections.ProductsProjection;
@@ -57,7 +58,7 @@ public class ProductController
     }
     
     @PutMapping("/{productId}")
-    public ResponseEntity<?> updateProduct(@PathVariable Long productId, @RequestBody ProductsDTO product)
+    public ResponseEntity<?> updateProduct(@PathVariable Long productId, @RequestBody ProductUpdateDTO product)
     {
     	productService.updateProduct(product,productId);
         return new ResponseEntity<>("Product Updated", HttpStatus.CREATED);
