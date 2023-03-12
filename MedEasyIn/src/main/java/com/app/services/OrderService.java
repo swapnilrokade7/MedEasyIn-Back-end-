@@ -1,5 +1,6 @@
 package com.app.services;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.app.dto.DeliveryAddressDTO;
@@ -20,6 +21,6 @@ public interface OrderService {
 
 	void cancelOrder(Long orderId);
 
-	void updateOrderStatus(Long orderId, String status);
+	void updateOrderStatus(Long orderId, String status,LocalDate deliveryDate);
 	
 }

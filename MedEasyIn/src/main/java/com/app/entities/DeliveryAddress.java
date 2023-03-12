@@ -17,9 +17,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class DeliveryAddress extends BaseEntity{
 	@Column(length = 50,nullable = false)
 	@NotBlank(message = "Address cannot be Blank")
-	private String adress_Line1;
+	private String adressLine1;
 	@Column(length = 50,nullable = false)
-	private String adress_Line2;
+	private String adressLine2;
 	@Column(length = 50,nullable = false)
 	@NotBlank(message = "City cannot be Blank")
 	private String city;
@@ -29,39 +29,39 @@ public class DeliveryAddress extends BaseEntity{
 	@Column(length = 50,nullable = false)
 	@Size(min=6,max=8)
 	private String zipCode;
-	@OneToOne
-	@JoinColumn(name="order_id")
-	@JsonIgnore
-	private Orders orderInfo;
+//	@OneToOne
+//	@JoinColumn(name="order_id")
+//	@JsonIgnore
+//	private Orders orderInfo;
 	
 	public DeliveryAddress() {
 		super();
 		System.out.println("in ctor "+getClass().getName());
 	}
 
-	public DeliveryAddress(String adress_Line1, String adress_Line2, String city, String state, String zip_Code) {
+	public DeliveryAddress(String adressLine1, String adressLine2, String city, String state, String zipCode) {
 		super();
-		this.adress_Line1 = adress_Line1;
-		this.adress_Line2 = adress_Line2;
+		this.adressLine1 = adressLine1;
+		this.adressLine2 = adressLine2;
 		this.city = city;
 		this.state = state;
-		this.zipCode = zip_Code;
+		this.zipCode = zipCode;
 		}
 
-	public String getAdress_Line1() {
-		return adress_Line1;
+	public String getAdressLine1() {
+		return adressLine1;
 	}
 
-	public void setAdress_Line1(String adress_Line1) {
-		this.adress_Line1 = adress_Line1;
+	public void setAdressLine1(String adressLine1) {
+		this.adressLine1 = adressLine1;
 	}
 
-	public String getAdress_Line2() {
-		return adress_Line2;
+	public String getAdressLine2() {
+		return adressLine2;
 	}
 
-	public void setAdress_Line2(String adress_Line2) {
-		this.adress_Line2 = adress_Line2;
+	public void setAdressLine2(String adressLine2) {
+		this.adressLine2 = adressLine2;
 	}
 
 	public String getCity() {
@@ -80,21 +80,21 @@ public class DeliveryAddress extends BaseEntity{
 		this.state = state;
 	}
 
-	public String getZip_Code() {
+	public String getZipCode() {
 		return zipCode;
 	}
 
-	public void setZip_Code(String zipCode) {
+	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
 	}
 
-	public Orders getOrderInfo() {
-		return orderInfo;
-	}
-
-	public void setOrderInfo(Orders orderInfo) {
-		this.orderInfo = orderInfo;
-	}
+//	public Orders getOrderInfo() {
+//		return orderInfo;
+//	}
+//
+//	public void setOrderInfo(Orders orderInfo) {
+//		this.orderInfo = orderInfo;
+//	}
 	
 	
 

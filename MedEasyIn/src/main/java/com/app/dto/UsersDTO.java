@@ -8,11 +8,7 @@ public class UsersDTO{
 	private String email;
 	private String password;
 	private Role role;
-	private String mobileNumber;
-	
-	/*
-	 {"firstName":"Mathuresh","lastName":"Yadav","email":"m@gmail.com","password":"satyajeet","role":"CUSTOMER","mobileNumber":"1234567890",}*/
-	
+	private String mobileNumber;	
 	
 	public UsersDTO() {
 		super();

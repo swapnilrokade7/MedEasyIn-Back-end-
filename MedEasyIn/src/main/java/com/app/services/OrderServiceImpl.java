@@ -51,12 +51,12 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public OrdersRespDTO placeOrder(Long userId,DeliveryAddressDTO address) {
 
-		DeliveryAddress trueAddress=new DeliveryAddress(address.getAdress_Line1(),address.getAdress_Line2(),address.getCity(),address.getState(),address.getZipCode());
+		DeliveryAddress trueAddress=new DeliveryAddress(address.getAddressLine1(),address.getAddressLine2(),address.getCity(),address.getState(),address.getZipCode());
 		DeliveryAddress addedAddress=addressRepository.save(trueAddress);
 		Users user=userRepository.findById(userId).orElseThrow(()->new ElementNotFoundException("User", "404", "Not Found1231321231231"));
 		Orders order=new Orders( LocalDate.now(),LocalDate.of(2024, 12, 12), Status.PLACED, 0, 40 , user, addedAddress);
 		Orders neworder=orderRepository.save(order);
-		addedAddress.setOrderInfo(neworder);
+//		addedAddress.setOrderInfo(neworder);
 		Carts cart=user.getCart();
 		Set<CartItems> cartItems=user.getCart().getCartItems();
 		cartItems.forEach(x->{
@@ -88,7 +88,7 @@ public class OrderServiceImpl implements OrderService {
 		list.forEach(x->{
 			x.getOrderDetails().forEach(y->{y.getQuantity();});
 			x.getUserOrdered().getCart().getCartItems().forEach(z->z.getQuantity());
-			x.getAddress().getAdress_Line1();
+			x.getAddress().getAdressLine1();
 		});
 
 
@@ -106,7 +106,7 @@ public class OrderServiceImpl implements OrderService {
 		list.forEach(x->{
 			x.getOrderDetails().forEach(y->{y.getQuantity();});
 			x.getUserOrdered().getCart().getCartItems().forEach(z->z.getQuantity());
-			x.getAddress().getAdress_Line1();
+			x.getAddress().getAdressLine1();
 		});
 
 		return list;
@@ -142,9 +142,10 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public void updateOrderStatus(Long orderId,String status) {
+	public void updateOrderStatus(Long orderId,String status,LocalDate deliveryDate) {
 		Orders order=orderRepository.findById(orderId).orElseThrow(()->new ElementNotFoundException("Order", "404", "Not Found"));
 		order.setStatus(Status.valueOf(status));
+		order.setDeliveryDate(deliveryDate);
 	}
 
 }

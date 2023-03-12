@@ -52,7 +52,8 @@ public class OrderController {
 	@PutMapping("/user/cancel/{orderId}")//User
 	public ResponseEntity<String> cancelOrder(@PathVariable Long orderId)
 	{	
-		
+		System.out.println("In Order Cancel &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& ");
+
 		orderService.cancelOrder(orderId);
 		return new ResponseEntity<String>( "Order Deleted",HttpStatus.CREATED);
 	} 
@@ -68,8 +69,7 @@ public class OrderController {
 	@PutMapping("/admin")
 	public ResponseEntity<String> updateOrderStatus(@RequestBody OrderStatusDTO order)
 	{	
-		
-		orderService.updateOrderStatus(order.getOrderId(), order.getStatus());
+		orderService.updateOrderStatus(order.getOrderId(), order.getStatus(),order.getDeliveryDate());
 		return new ResponseEntity<String>( "Order Deleted",HttpStatus.CREATED);
 	} 
 

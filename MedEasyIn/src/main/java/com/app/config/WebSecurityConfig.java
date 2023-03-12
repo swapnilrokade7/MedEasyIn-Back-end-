@@ -57,7 +57,7 @@ public class WebSecurityConfig {
 				.antMatchers(HttpMethod.PUT, "/user/**").hasAuthority("CUSTOMER")
 				.antMatchers("/user/admin/**", "/products/**").hasAuthority("ADMIN")
 				.antMatchers("/order/admin").hasAuthority("ADMIN")
-				.antMatchers("/order/user/**").hasAuthority("CUSTOMER")
+				.antMatchers("/order/user/cancel/**").hasAuthority("CUSTOMER")
 				.antMatchers("/cartitem/**").hasAuthority("CUSTOMER")
 				.antMatchers("/cart/**").hasAuthority("CUSTOMER")
 				
