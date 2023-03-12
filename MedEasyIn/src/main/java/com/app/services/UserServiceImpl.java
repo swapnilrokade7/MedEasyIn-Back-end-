@@ -16,6 +16,7 @@ import com.app.customException.UserAlreadyExistsException;
 import com.app.dto.UsersDTO;
 import com.app.dto.UsersRespDTO;
 import com.app.entities.Carts;
+import com.app.entities.Role;
 import com.app.entities.Users;
 import com.app.repository.UserRepository;
 
@@ -50,9 +51,15 @@ public class UserServiceImpl implements UserService{
 		}
 		
 		Users addeduser =userRepo.save(trueUser);
-		Carts cart=cartService.addCart(addeduser);
-		addeduser.setCart(cart);
-		return mapper.map(addeduser, UsersRespDTO.class);
+		if(addeduser.getRole()==Role.CUSTOMER) {
+			Carts cart=cartService.addCart(addeduser);
+			addeduser.setCart(cart);
+			return mapper.map(addeduser, UsersRespDTO.class);
+		}
+		else {
+			return mapper.map(addeduser, UsersRespDTO.class);
+		}
+		
 		
 		
 		
